@@ -92,6 +92,28 @@ export interface Stream {
   thumbnail: string;
 }
 
+export interface PlayerHighlight {
+  player: Player;
+  event: string;
+  maps: number;
+  kills: number;
+  deaths: number;
+  title: string;
+}
+
+export interface RoundHighlight {
+  id: number;
+  title: string;
+  event: string;
+  team1: Team;
+  team2: Team;
+  round: number;
+  player: string;
+  description: string;
+  thumbnail: string;
+  youtubeId: string;
+}
+
 // -- Base path for static assets (must match next.config.ts basePath) --
 const B = process.env.NODE_ENV === "production" ? "/repositorio-des-web" : "";
 
@@ -302,3 +324,27 @@ export const streams: Stream[] = [
   { id: 7, channel: "Pimp", title: "IEM Katowice Co-stream w/ analysis", viewers: 8400, game: "Counter-Strike 2", language: "EN", thumbnail: gamingMonitor },
   { id: 8, channel: "mch_agg", title: "FPL ao vivo - grind noturno", viewers: 6200, game: "Counter-Strike 2", language: "PT", thumbnail: neonLights },
 ];
+
+// -- Player of the Week --
+export const playerOfTheWeek: PlayerHighlight = {
+  player: topPlayers[0],
+  event: "IEM Katowice 2026",
+  maps: 12,
+  kills: 312,
+  deaths: 187,
+  title: "Player of the Week",
+};
+
+// -- Round Highlight --
+export const roundHighlight: RoundHighlight = {
+  id: 1,
+  title: "donk 1v4 clutch on Mirage",
+  event: "IEM Katowice 2026 — Semifinal",
+  team1: teams[4],
+  team2: teams[0],
+  round: 28,
+  player: "donk",
+  description: "In a crucial semifinal round, donk single-handedly dismantled NAVI's defense with an incredible 1v4 clutch that turned the entire series around. Armed with only an AK-47 and a dream, he systematically eliminated each opponent in a masterclass of positioning and aim.",
+  thumbnail: esportsArena,
+  youtubeId: "dQw4w9WgXcQ",
+};

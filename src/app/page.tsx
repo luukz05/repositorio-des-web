@@ -4,7 +4,7 @@ import NewsSection from "@/components/NewsSection";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import TeamLogo from "@/components/TeamLogo";
-import { news, events, topPlayers, forumThreads, streams } from "@/data/mock";
+import { news, events, topPlayers, forumThreads, streams, playerOfTheWeek, roundHighlight } from "@/data/mock";
 
 /* ── Ad placeholder ── */
 function AdBanner({ height, label }: { height: string; label: string }) {
@@ -18,6 +18,134 @@ function AdBanner({ height, label }: { height: string; label: string }) {
         <p className="text-xs text-text-muted/30">{label}</p>
       </div>
     </div>
+  );
+}
+
+/* ── Player of the Week ── */
+function PlayerOfTheWeek() {
+  const { player, event, maps, kills, deaths, title } = playerOfTheWeek;
+  return (
+    <section className="animate-fade-in-up">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 text-base font-bold">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#eab308" strokeWidth="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          {title}
+        </h2>
+        <span className="text-[11px] font-bold uppercase tracking-wider text-yellow bg-yellow/15 px-2.5 py-1 rounded-full">{event}</span>
+      </div>
+      <div className="rounded-xl border border-border bg-bg-card overflow-hidden card-glow">
+        <div className="relative grid grid-cols-1 md:grid-cols-[240px_1fr]">
+          {/* Player image */}
+          <div className="relative h-64 md:h-auto overflow-hidden bg-gradient-to-b from-bg-surface to-bg-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={player.image} alt={player.name} className="h-full w-full object-cover object-top" />
+            <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-bg-card" />
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-yellow/20 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-yellow/30">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#eab308">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span className="text-[10px] font-black uppercase tracking-wider text-yellow">MVP</span>
+            </div>
+          </div>
+
+          {/* Player info */}
+          <div className="p-5 md:p-6 flex flex-col justify-center">
+            <div className="flex items-center gap-3 mb-1">
+              <TeamLogo src={player.teamLogo} name={player.team} size={28} />
+              <span className="text-xs font-medium text-text-muted uppercase tracking-wider">{player.team}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="text-lg">{player.countryFlag}</span>
+              <h3 className="text-2xl font-black">{player.name}</h3>
+            </div>
+            <p className="text-sm text-text-muted mb-4">{player.realName}</p>
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-5 gap-3">
+              {[
+                { label: "Rating", value: player.rating.toFixed(2), color: "text-green" },
+                { label: "K/D", value: player.kd, color: "text-blue-light" },
+                { label: "ADR", value: player.adr.toString(), color: "text-orange" },
+                { label: "KAST", value: player.kast, color: "text-purple-400" },
+                { label: "Maps", value: maps.toString(), color: "text-text-primary" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center rounded-lg bg-bg-body/50 border border-border px-2 py-2.5">
+                  <p className={`text-lg font-bold tabular-nums ${stat.color}`}>{stat.value}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted mt-0.5">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4 mt-4 text-xs text-text-muted">
+              <span>{kills} kills</span>
+              <span className="text-text-muted/30">|</span>
+              <span>{deaths} deaths</span>
+              <span className="text-text-muted/30">|</span>
+              <span>{maps} maps played</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Round Highlight of the Week ── */
+function RoundHighlightSection() {
+  const hl = roundHighlight;
+  return (
+    <section className="animate-fade-in-up">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 text-base font-bold">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Round Highlight of the Week
+        </h2>
+        <span className="text-[11px] font-medium text-text-muted">{hl.event}</span>
+      </div>
+      <div className="rounded-xl border border-border bg-bg-card overflow-hidden card-glow">
+        {/* Video thumbnail with play overlay */}
+        <div className="relative h-56 sm:h-72 overflow-hidden group cursor-pointer">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={hl.thumbnail} alt={hl.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all group-hover:bg-black/30">
+            <div className="h-16 w-16 rounded-full bg-red/90 flex items-center justify-center shadow-lg shadow-red/30 transition-transform group-hover:scale-110">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                <polygon points="6 3 20 12 6 21 6 3"/>
+              </svg>
+            </div>
+          </div>
+          <div className="absolute bottom-3 left-3 flex items-center gap-2">
+            <TeamLogo src={hl.team1.logo} name={hl.team1.name} size={24} />
+            <span className="text-xs font-bold text-white/90">vs</span>
+            <TeamLogo src={hl.team2.logo} name={hl.team2.name} size={24} />
+          </div>
+          <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] font-bold text-white">
+            Round {hl.round}
+          </div>
+        </div>
+
+        {/* Info */}
+        <div className="p-4">
+          <h3 className="text-lg font-bold mb-1">{hl.title}</h3>
+          <p className="text-sm text-text-secondary leading-relaxed mb-3">{hl.description}</p>
+          <a
+            href={`https://www.youtube.com/watch?v=${hl.youtubeId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg bg-red/15 border border-red/30 px-4 py-2 text-sm font-semibold text-red hover:bg-red/25 transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Watch Replay
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -398,9 +526,13 @@ export default function Home() {
           <div className="space-y-8">
             <NewsSection />
 
+            <PlayerOfTheWeek />
+
             <AdBanner height="250px" label="728 × 250 — Mid-content" />
 
             <ForumDiscussions />
+
+            <RoundHighlightSection />
 
             <TopPlayerRatings />
 

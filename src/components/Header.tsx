@@ -10,8 +10,11 @@ const navLinks = [
   { label: "Results", href: "/results" },
   { label: "Events", href: "/events" },
   { label: "Stats", href: "/stats" },
-  { label: "Forums", href: "/forums" },
+  { label: "Galleries", href: "/galleries" },
   { label: "Rankings", href: "/rankings" },
+  { label: "Forums", href: "/forums" },
+  { label: "Betting", href: "/betting" },
+  { label: "Fantasy", href: "/fantasy" },
 ];
 
 export default function Header() {
@@ -58,8 +61,8 @@ export default function Header() {
               </svg>
               <input type="text" placeholder="Search teams, players..." className="bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted w-full" />
             </div>
-            <button className="rounded-lg bg-blue px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-light">Login</button>
-            <button className="hidden sm:block rounded-lg border border-border px-4 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary hover:border-border-hover">Sign Up</button>
+            <Link href="/login" className="rounded-lg bg-blue px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-blue-light">Login</Link>
+            <Link href="/register" className="hidden sm:block rounded-lg border border-border px-4 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary hover:border-border-hover">Sign Up</Link>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="text-text-secondary lg:hidden">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             </button>
