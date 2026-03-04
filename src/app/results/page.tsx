@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TeamLogo from "@/components/TeamLogo";
+import Link from "next/link";
 import { recentResults, Match } from "@/data/mock";
 
 export default function ResultsPage() {
@@ -34,9 +35,10 @@ export default function ResultsPage() {
                 const t1Won = (match.score1 ?? 0) > (match.score2 ?? 0);
                 const t2Won = (match.score2 ?? 0) > (match.score1 ?? 0);
                 return (
-                  <div
+                  <Link
+                    href={`/matches/${match.id}`}
                     key={match.id}
-                    className="relative rounded-xl border border-border overflow-hidden transition-all hover:-translate-y-0.5 cursor-pointer card-glow animate-fade-in-up"
+                    className="block relative rounded-xl border border-border overflow-hidden transition-all hover:-translate-y-0.5 cursor-pointer card-glow animate-fade-in-up"
                     style={{
                       animationDelay: `${i * 0.04}s`,
                       background: `linear-gradient(90deg, ${match.team1.color}18 0%, #1a2332 30%, #1a2332 70%, ${match.team2.color}18 100%)`,
@@ -73,7 +75,7 @@ export default function ResultsPage() {
                         <TeamLogo src={match.team2.logo} name={match.team2.name} size={28} />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>

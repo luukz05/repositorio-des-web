@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { news } from "@/data/mock";
 
 export default function NewsPage() {
@@ -12,7 +13,7 @@ export default function NewsPage() {
       <main className="mx-auto max-w-[1200px] px-5 py-8">
         {/* Breadcrumb */}
         <div className="mb-6 text-sm text-text-muted">
-          <a href="#" className="hover:text-text-secondary">Home</a>
+          <Link href="/" className="hover:text-text-secondary">Home</Link>
           <span className="mx-2">&rsaquo;</span>
           <span className="text-text-primary">News</span>
         </div>
@@ -20,7 +21,7 @@ export default function NewsPage() {
         <h1 className="text-2xl font-bold mb-6">Latest News</h1>
 
         {/* Featured */}
-        <article className="group mb-8 cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover">
+        <Link href={`/news/${featured.id}`} className="group block mb-8 cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover">
           <div className="grid md:grid-cols-2">
             <div className="h-64 md:h-auto overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -43,12 +44,12 @@ export default function NewsPage() {
               </div>
             </div>
           </div>
-        </article>
+        </Link>
 
         {/* News Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {rest.map((article) => (
-            <article key={article.id} className="group cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover">
+            <Link href={`/news/${article.id}`} key={article.id} className="group cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover">
               <div className="h-40 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={article.image} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -67,7 +68,7 @@ export default function NewsPage() {
                   <span>{article.comments} comments</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </main>

@@ -764,6 +764,175 @@ export const academyGuides: Guide[] = [
   },
 ];
 
+// -- Legend Anthem --
+export interface Legend {
+  id: number;
+  nickname: string;
+  realName: string;
+  country: string;
+  countryFlag: string;
+  image: string;
+  role: string;
+  epithet: string;
+  bio: string;
+  achievements: { title: string; year: string }[];
+  careerStats: { label: string; value: string }[];
+  teams: { name: string; logo: string; period: string }[];
+  quote: string;
+}
+
+export const legends: Legend[] = [
+  {
+    id: 1,
+    nickname: "FalleN",
+    realName: "Gabriel Toledo",
+    country: "BR",
+    countryFlag: flag.BR,
+    image: trophyCup,
+    role: "AWPer / In-Game Leader",
+    epithet: "The Professor",
+    bio: "Gabriel \"FalleN\" Toledo is the godfather of Brazilian Counter-Strike. An AWPer, in-game leader, mentor, and visionary, FalleN didn't just play the game — he built an entire region's scene from the ground up. He founded Games Academy, mentored an entire generation of Brazilian talent, and led Luminosity/SK Gaming to back-to-back Major championships in 2016, making history as the first South American team to ever win a Major. Known as \"The Professor\" for his tactical genius and leadership, FalleN's legacy extends far beyond his trophies. He proved that greatness can come from anywhere.",
+    achievements: [
+      { title: "Major Champion — MLG Columbus 2016", year: "2016" },
+      { title: "Major Champion — ESL One Cologne 2016", year: "2016" },
+      { title: "Major MVP — MLG Columbus 2016", year: "2016" },
+      { title: "Intel Grand Slam Season 1", year: "2017" },
+      { title: "ESL One New York Champion", year: "2016" },
+      { title: "ECS Season 1 Champion", year: "2016" },
+      { title: "ESL Pro League Season 3 Champion", year: "2016" },
+      { title: "ESL Pro League Season 4 Champion", year: "2016" },
+      { title: "EPICENTER Champion", year: "2017" },
+      { title: "DreamHack Masters Las Vegas Champion", year: "2017" },
+      { title: "HLTV Top 20 Players — 6 appearances", year: "2015–2022" },
+      { title: "Games Academy Founder", year: "2014" },
+    ],
+    careerStats: [
+      { label: "Maps Played", value: "2,847" },
+      { label: "Total Kills", value: "48,392" },
+      { label: "Career Rating", value: "1.08" },
+      { label: "Headshot %", value: "41.2%" },
+      { label: "AWP Kills/Round", value: "0.28" },
+      { label: "Opening Kills", value: "5,124" },
+      { label: "Clutches Won", value: "487" },
+      { label: "1v1 Win Rate", value: "58.3%" },
+    ],
+    teams: [
+      { name: "Imperial", logo: logo.imperial, period: "2023 – Present" },
+      { name: "Team Liquid", logo: logo.liquid, period: "2022 – 2023" },
+      { name: "FURIA", logo: logo.furia, period: "2021 – 2022" },
+      { name: "MiBR/SK Gaming/Luminosity", logo: logo.imperial, period: "2015 – 2020" },
+    ],
+    quote: "I don't play for myself. I play for every kid in Brazil who dreams of being a pro. I play for the region. That's what drives me.",
+  },
+];
+
+// -- Player Profiles (detailed) --
+export interface PlayerProfile {
+  id: number;
+  nickname: string;
+  realName: string;
+  age: number;
+  country: string;
+  countryFlag: string;
+  image: string;
+  team: string;
+  teamLogo: string;
+  role: string;
+  rating2: number;
+  dpr: number;
+  kast: string;
+  impact: number;
+  adr: number;
+  kd: string;
+  hsPercent: string;
+  mapsPlayed: number;
+  totalKills: number;
+  totalDeaths: number;
+  roundsPlayed: number;
+  clutchesWon: number;
+  clutchesTotal: number;
+  openingKills: number;
+  openingDeaths: number;
+  awpKillsRound: number;
+  bestMaps: { map: string; rating: number; winRate: number; matches: number }[];
+  weaponStats: { weapon: string; kills: number; hsPercent: string }[];
+  recentMatches: { event: string; opponent: string; opponentLogo: string; result: string; rating: number; kills: number; deaths: number; map: string }[];
+  teamHistory: { team: string; logo: string; period: string }[];
+  achievements: string[];
+}
+
+const makeProfile = (p: Player, id: number, extra: Partial<PlayerProfile>): PlayerProfile => ({
+  id,
+  nickname: p.name,
+  realName: p.realName,
+  age: 18 + id,
+  country: p.country,
+  countryFlag: p.countryFlag,
+  image: p.image,
+  team: p.team,
+  teamLogo: p.teamLogo,
+  role: id <= 2 ? "Star Player" : id <= 5 ? "Rifler" : "Support",
+  rating2: p.rating,
+  dpr: +(0.55 + Math.random() * 0.15).toFixed(2),
+  kast: p.kast,
+  impact: +(1.0 + Math.random() * 0.4).toFixed(2),
+  adr: p.adr,
+  kd: p.kd,
+  hsPercent: `${(42 + Math.floor(Math.random() * 16))}%`,
+  mapsPlayed: 180 + id * 35,
+  totalKills: 4200 + id * 280,
+  totalDeaths: 3100 + id * 210,
+  roundsPlayed: 8500 + id * 700,
+  clutchesWon: 45 + Math.floor(Math.random() * 40),
+  clutchesTotal: 120 + Math.floor(Math.random() * 60),
+  openingKills: 320 + Math.floor(Math.random() * 200),
+  openingDeaths: 190 + Math.floor(Math.random() * 100),
+  awpKillsRound: +(Math.random() * 0.35).toFixed(2),
+  bestMaps: [
+    { map: "Mirage", rating: +(p.rating + Math.random() * 0.1).toFixed(2), winRate: 60 + Math.floor(Math.random() * 18), matches: 30 + Math.floor(Math.random() * 20) },
+    { map: "Inferno", rating: +(p.rating - 0.02 + Math.random() * 0.1).toFixed(2), winRate: 55 + Math.floor(Math.random() * 20), matches: 28 + Math.floor(Math.random() * 18) },
+    { map: "Anubis", rating: +(p.rating - 0.05 + Math.random() * 0.12).toFixed(2), winRate: 50 + Math.floor(Math.random() * 22), matches: 22 + Math.floor(Math.random() * 15) },
+    { map: "Nuke", rating: +(p.rating - 0.08 + Math.random() * 0.15).toFixed(2), winRate: 48 + Math.floor(Math.random() * 25), matches: 18 + Math.floor(Math.random() * 12) },
+    { map: "Dust II", rating: +(p.rating - 0.03 + Math.random() * 0.1).toFixed(2), winRate: 52 + Math.floor(Math.random() * 20), matches: 25 + Math.floor(Math.random() * 15) },
+  ],
+  weaponStats: [
+    { weapon: "AK-47", kills: 1800 + Math.floor(Math.random() * 600), hsPercent: `${48 + Math.floor(Math.random() * 12)}%` },
+    { weapon: "M4A4", kills: 1200 + Math.floor(Math.random() * 400), hsPercent: `${42 + Math.floor(Math.random() * 10)}%` },
+    { weapon: "AWP", kills: 600 + Math.floor(Math.random() * 800), hsPercent: `${8 + Math.floor(Math.random() * 6)}%` },
+    { weapon: "Desert Eagle", kills: 280 + Math.floor(Math.random() * 150), hsPercent: `${55 + Math.floor(Math.random() * 15)}%` },
+    { weapon: "USP-S", kills: 220 + Math.floor(Math.random() * 120), hsPercent: `${60 + Math.floor(Math.random() * 12)}%` },
+    { weapon: "Glock-18", kills: 180 + Math.floor(Math.random() * 100), hsPercent: `${35 + Math.floor(Math.random() * 15)}%` },
+  ],
+  recentMatches: [
+    { event: "IEM Katowice 2026", opponent: "NAVI", opponentLogo: logo.navi, result: "W 16-12", rating: +(p.rating + Math.random() * 0.2 - 0.1).toFixed(2), kills: 22 + Math.floor(Math.random() * 8), deaths: 14 + Math.floor(Math.random() * 6), map: "Mirage" },
+    { event: "IEM Katowice 2026", opponent: "FaZe", opponentLogo: logo.faze, result: "L 13-16", rating: +(p.rating - Math.random() * 0.2).toFixed(2), kills: 18 + Math.floor(Math.random() * 6), deaths: 16 + Math.floor(Math.random() * 5), map: "Inferno" },
+    { event: "BLAST Premier", opponent: "G2", opponentLogo: logo.g2, result: "W 2-0", rating: +(p.rating + Math.random() * 0.15).toFixed(2), kills: 45 + Math.floor(Math.random() * 12), deaths: 28 + Math.floor(Math.random() * 8), map: "BO3" },
+    { event: "ESL Pro League", opponent: "Vitality", opponentLogo: logo.vitality, result: "W 16-9", rating: +(p.rating + Math.random() * 0.3).toFixed(2), kills: 26 + Math.floor(Math.random() * 8), deaths: 10 + Math.floor(Math.random() * 5), map: "Anubis" },
+    { event: "ESL Pro League", opponent: "MOUZ", opponentLogo: logo.mouz, result: "L 1-2", rating: +(p.rating - Math.random() * 0.15).toFixed(2), kills: 38 + Math.floor(Math.random() * 10), deaths: 32 + Math.floor(Math.random() * 8), map: "BO3" },
+  ],
+  teamHistory: [],
+  achievements: [],
+  ...extra,
+});
+
+export const playerProfiles: PlayerProfile[] = [
+  makeProfile(topPlayers[0], 1, { age: 18, role: "Rifler / Entry Fragger", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2023 – Present" }], achievements: ["HLTV #1 Player 2025", "IEM Katowice 2026 MVP", "BLAST Premier Champion 2025", "Intel Grand Slam S3"] }),
+  makeProfile(topPlayers[1], 2, { age: 24, role: "AWPer / Star Player", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2019 – Present" }], achievements: ["HLTV #1 Player 2020", "HLTV #1 Player 2021", "PGL Major Copenhagen 2024 MVP", "Intel Grand Slam S2"] }),
+  makeProfile(topPlayers[2], 3, { age: 27, role: "Rifler / Star Player", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["IEM Katowice 2022 MVP", "BLAST Premier Champion 2024", "ESL One Cologne 2023 MVP"] }),
+  makeProfile(topPlayers[3], 4, { age: 19, role: "AWPer", teamHistory: [{ team: "G2", logo: logo.g2, period: "2022 – Present" }, { team: "NAVI Junior", logo: logo.navi, period: "2020 – 2022" }], achievements: ["BLAST Premier Champion 2024", "ESL Pro League S18 MVP"] }),
+  makeProfile(topPlayers[4], 5, { age: 25, role: "Lurker / Rifler", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2022 – Present" }, { team: "MOUZ", logo: logo.mouz, period: "2017 – 2022" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "HLTV #4 Player 2022"] }),
+  makeProfile(topPlayers[5], 6, { age: 21, role: "Rifler", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2021 – Present" }], achievements: ["PGL Major Stockholm 2021 Champion", "Intel Grand Slam S1 (NAVI)"] }),
+  makeProfile(topPlayers[6], 7, { age: 23, role: "Entry Fragger", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2023 – Present" }, { team: "Complexity", logo: logo.complexity, period: "2021 – 2023" }], achievements: ["IEM Katowice 2024 Champion"] }),
+  makeProfile(topPlayers[7], 8, { age: 23, role: "Rifler", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2022 – Present" }], achievements: ["PGL Major Copenhagen 2024 Champion", "BLAST Premier Champion 2023"] }),
+  makeProfile(topPlayers[8], 9, { age: 24, role: "Rifler", teamHistory: [{ team: "MOUZ", logo: logo.mouz, period: "2018 – Present" }], achievements: ["ESL Pro League S19 Champion", "IEM Cologne 2024 Finalist"] }),
+  makeProfile(topPlayers[9], 10, { age: 29, role: "Rifler / Support", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["BLAST Premier Champion 2024", "IEM Katowice 2022 Champion"] }),
+  makeProfile(topPlayers[10], 11, { age: 23, role: "AWPer / Rifler", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2020 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion"] }),
+  makeProfile(topPlayers[11], 12, { age: 30, role: "Rifler / Support", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2016 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "Intel Grand Slam S2 (FaZe)"] }),
+  makeProfile(topPlayers[12], 13, { age: 23, role: "AWPer", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2020 – Present" }], achievements: ["IEM Katowice 2026 Finalist", "BLAST Premier 2025 Champion"] }),
+  makeProfile(topPlayers[13], 14, { age: 25, role: "Rifler", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
+  makeProfile(topPlayers[14], 15, { age: 26, role: "Rifler / Anchor", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
+];
+
 // -- Player of the Week --
 export const playerOfTheWeek: PlayerHighlight = {
   player: topPlayers[0],

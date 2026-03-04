@@ -14,8 +14,7 @@ const navLinks = [
   { label: "Galleries", href: "/galleries" },
   { label: "Rankings", href: "/rankings" },
   { label: "Forums", href: "/forums" },
-  { label: "Betting", href: "/betting" },
-  { label: "Fantasy", href: "/fantasy" },
+  { label: "Academy", href: "/academy" },
 ];
 
 export default function Header() {

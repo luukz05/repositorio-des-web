@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { events } from "@/data/mock";
 
 export default function EventsPage() {
@@ -25,7 +26,7 @@ export default function EventsPage() {
             <h2 className="text-sm font-bold uppercase tracking-wider text-text-secondary mb-4">Ongoing Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {ongoing.map((event) => (
-                <div key={event.id} className="group overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover cursor-pointer">
+                <Link href={`/events/${event.id}`} key={event.id} className="group overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover cursor-pointer">
                   <div className="h-44 overflow-hidden relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={event.image} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -55,7 +56,7 @@ export default function EventsPage() {
                       <div className="h-full rounded-full bg-gradient-to-r from-blue to-blue-light" style={{ width: `${event.progress}%` }} />
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>
@@ -66,7 +67,7 @@ export default function EventsPage() {
           <h2 className="text-sm font-bold uppercase tracking-wider text-text-secondary mb-4">Upcoming Events</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {upcoming.map((event) => (
-              <div key={event.id} className="group overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover cursor-pointer">
+              <Link href={`/events/${event.id}`} key={event.id} className="group overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover cursor-pointer">
                 <div className="h-36 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={event.image} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -85,7 +86,7 @@ export default function EventsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

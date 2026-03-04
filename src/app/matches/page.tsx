@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TeamLogo from "@/components/TeamLogo";
+import Link from "next/link";
 import { liveMatches, upcomingMatches } from "@/data/mock";
 import { Match } from "@/data/mock";
 
@@ -11,8 +12,9 @@ function MatchRow({ match, index }: { match: Match; index: number }) {
   const t2Won = (match.score2 ?? 0) > (match.score1 ?? 0);
 
   return (
-    <div
-      className="relative rounded-xl border border-border overflow-hidden transition-all hover:-translate-y-0.5 cursor-pointer card-glow animate-fade-in-up"
+    <Link
+      href={`/matches/${match.id}`}
+      className="block relative rounded-xl border border-border overflow-hidden transition-all hover:-translate-y-0.5 cursor-pointer card-glow animate-fade-in-up"
       style={{
         animationDelay: `${index * 0.04}s`,
         background: `linear-gradient(90deg, ${match.team1.color}18 0%, #1a2332 30%, #1a2332 70%, ${match.team2.color}18 100%)`,
@@ -71,7 +73,7 @@ function MatchRow({ match, index }: { match: Match; index: number }) {
           <TeamLogo src={match.team2.logo} name={match.team2.name} size={32} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

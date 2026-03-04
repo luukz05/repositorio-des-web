@@ -2,6 +2,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TeamLogo from "@/components/TeamLogo";
+import Link from "next/link";
 import { topPlayers } from "@/data/mock";
 
 export default function StatsPage() {
@@ -79,7 +80,7 @@ export default function StatsPage() {
           </table>
         </div>
         <div className="mt-4 text-center">
-          <a href="#" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">View All Player Stats →</a>
+          <Link href="/players" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">View All Player Profiles →</Link>
         </div>
       </main>
       <Footer />
