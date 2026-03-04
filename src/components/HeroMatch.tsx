@@ -1,16 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 import { liveMatches } from "@/data/mock";
 import TeamLogo from "./TeamLogo";
+
+const B = process.env.NODE_ENV === "production" ? "/repositorio-des-web" : "";
 
 export default function HeroMatch() {
   const match = liveMatches[0];
 
   return (
     <section className="relative overflow-hidden">
-      {/* Team-colored gradient background */}
+      {/* Katowice arena background */}
+      <img
+        src={`${B}/news/katowice-bg.jpg`}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* Dark overlay + team gradient */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(90deg, ${match.team1.color}20 0%, #0c1929 30%, #111d2e 50%, #0c1929 70%, ${match.team2.color}20 100%)`,
+          background: `linear-gradient(90deg, ${match.team1.color}25 0%, rgba(12,25,41,0.88) 30%, rgba(17,29,46,0.92) 50%, rgba(12,25,41,0.88) 70%, ${match.team2.color}25 100%)`,
         }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.08),transparent_70%)]" />
