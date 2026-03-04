@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Results", href: "/results" },
   { label: "Events", href: "/events" },
   { label: "Stats", href: "/stats" },
+  { label: "Maps", href: "/maps" },
   { label: "Galleries", href: "/galleries" },
   { label: "Rankings", href: "/rankings" },
   { label: "Forums", href: "/forums" },

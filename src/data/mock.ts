@@ -325,6 +325,445 @@ export const streams: Stream[] = [
   { id: 8, channel: "mch_agg", title: "FPL ao vivo - grind noturno", viewers: 6200, game: "Counter-Strike 2", language: "PT", thumbnail: neonLights },
 ];
 
+// -- Maps --
+export interface GameMap {
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  pool: "active" | "reserve" | "removed";
+  ctWinRate: number;
+  tWinRate: number;
+  avgRounds: number;
+  pickRate: number;
+  banRate: number;
+  totalProMatches: number;
+  bestTeams: { name: string; logo: string; winRate: number }[];
+  callouts: string[];
+  utilityGuides: {
+    type: "smoke" | "flash" | "molotov" | "he";
+    name: string;
+    from: string;
+    description: string;
+    difficulty: "Easy" | "Medium" | "Hard";
+  }[];
+  highlights: {
+    title: string;
+    player: string;
+    event: string;
+    round: string;
+    description: string;
+  }[];
+  recentResults: {
+    team1: string;
+    team1Logo: string;
+    score1: number;
+    team2: string;
+    team2Logo: string;
+    score2: number;
+    event: string;
+    date: string;
+  }[];
+}
+
+export const gameMaps: GameMap[] = [
+  {
+    slug: "mirage",
+    name: "Mirage",
+    image: crowdArena,
+    description: "One of the most iconic and balanced maps in CS history. Set in a Moroccan-inspired setting, Mirage features a classic three-lane layout with mid control being the key to success. It rewards both strategic play and individual skill.",
+    pool: "active",
+    ctWinRate: 52.3,
+    tWinRate: 47.7,
+    avgRounds: 26.4,
+    pickRate: 28.5,
+    banRate: 12.3,
+    totalProMatches: 14820,
+    bestTeams: [
+      { name: "Natus Vincere", logo: logo.navi, winRate: 74.2 },
+      { name: "FaZe Clan", logo: logo.faze, winRate: 71.8 },
+      { name: "G2 Esports", logo: logo.g2, winRate: 69.5 },
+      { name: "Team Spirit", logo: logo.spirit, winRate: 67.3 },
+      { name: "Vitality", logo: logo.vitality, winRate: 65.1 },
+    ],
+    callouts: ["A Site", "A Ramp", "Tetris", "Ticket", "Jungle", "Connector", "CT Spawn", "Window", "Mid", "Top Mid", "Underpass", "B Site", "B Apps", "B Short", "Van", "Kitchen", "Market", "Palace", "T Spawn", "Catwalk"],
+    utilityGuides: [
+      { type: "smoke", name: "Window Smoke from T Spawn", from: "T Spawn", description: "Line up with the corner of the building on the left, aim at the antenna tip, and throw. This blocks CT sniper from Window room.", difficulty: "Easy" },
+      { type: "smoke", name: "Connector Smoke from A Ramp", from: "A Ramp", description: "Stand at the corner of A Ramp near the boxes, aim at the edge of the building above connector, jump-throw.", difficulty: "Medium" },
+      { type: "smoke", name: "Jungle Smoke from T Spawn", from: "T Spawn", description: "Position yourself against the wall at T Spawn, crosshair at the specific gap in the building, running throw.", difficulty: "Easy" },
+      { type: "flash", name: "A Site Pop Flash from Palace", from: "Palace", description: "Turn away from A site, right-click throw over the wall for a perfect pop flash that blinds site players.", difficulty: "Easy" },
+      { type: "flash", name: "B Apartments Flash", from: "B Apartments", description: "Throw over the wall from B apps entrance, bounces once and pops right as you peek.", difficulty: "Medium" },
+      { type: "molotov", name: "Under Window Molotov", from: "Top Mid", description: "From top mid, aim at the bottom of window room and throw. Forces the AWPer out of position.", difficulty: "Medium" },
+      { type: "he", name: "B Van HE", from: "B Apartments", description: "Peek the corner and throw at the van. Does massive damage to anyone playing behind it.", difficulty: "Easy" },
+    ],
+    highlights: [
+      { title: "coldzera's jumping AWP double kill", player: "coldzera", event: "MLG Columbus 2016", round: "OT Round 4", description: "The most iconic play in CS history. coldzera jumped from the boxes on B site and hit two no-scope AWP kills mid-air." },
+      { title: "NiKo 1v5 ace clutch", player: "NiKo", event: "ESL Pro League S14", round: "Round 24", description: "NiKo single-handedly won a 1v5 on the A site retake with all headshots." },
+      { title: "donk 1v4 clutch", player: "donk", event: "IEM Katowice 2026", round: "Round 28", description: "donk dismantled NAVI's defense with a 1v4 clutch that turned the semifinal around." },
+    ],
+    recentResults: [
+      { team1: "NAVI", team1Logo: logo.navi, score1: 13, team2: "FaZe", team2Logo: logo.faze, score2: 11, event: "IEM Katowice 2026", date: "Today" },
+      { team1: "Spirit", team1Logo: logo.spirit, score1: 16, team2: "G2", team2Logo: logo.g2, score2: 9, event: "BLAST Premier", date: "Yesterday" },
+      { team1: "Vitality", team1Logo: logo.vitality, score1: 13, team2: "MOUZ", team2Logo: logo.mouz, score2: 16, event: "ESL Pro League", date: "Mar 2" },
+    ],
+  },
+  {
+    slug: "inferno",
+    name: "Inferno",
+    image: esportsArena,
+    description: "A classic map set in an Italian village. Inferno is known for its tight corridors, crucial banana control, and intense A site executions. Team play and utility usage are essential here.",
+    pool: "active",
+    ctWinRate: 53.8,
+    tWinRate: 46.2,
+    avgRounds: 27.1,
+    pickRate: 25.2,
+    banRate: 14.1,
+    totalProMatches: 15340,
+    bestTeams: [
+      { name: "Vitality", logo: logo.vitality, winRate: 76.1 },
+      { name: "Natus Vincere", logo: logo.navi, winRate: 72.4 },
+      { name: "Astralis", logo: logo.astralis, winRate: 70.8 },
+      { name: "FURIA", logo: logo.furia, winRate: 68.2 },
+      { name: "Team Liquid", logo: logo.liquid, winRate: 66.9 },
+    ],
+    callouts: ["A Site", "Pit", "Graveyard", "Library", "Arch", "Apartments", "Balcony", "Mid", "Second Mid", "Banana", "B Site", "Coffins", "New Box", "Dark", "CT Spawn", "Construction", "Hay Bales", "T Spawn", "Top Banana", "Bottom Banana"],
+    utilityGuides: [
+      { type: "smoke", name: "Coffins Smoke from Banana", from: "Banana", description: "From top banana, aim at the specific spot on the sky above the building and throw. Covers coffins position on B site.", difficulty: "Easy" },
+      { type: "smoke", name: "CT Smoke from Banana", from: "Banana", description: "Stand at the corner of top banana, aim at the edge of the church tower, jump-throw. Blocks CT rotations.", difficulty: "Medium" },
+      { type: "smoke", name: "Arch Smoke from T Spawn", from: "T Spawn", description: "Line up with the chimney and throw. Essential for A executions to block rotations from arch.", difficulty: "Hard" },
+      { type: "flash", name: "Banana Pop Flash", from: "Top Banana", description: "Throw against the right wall at top banana for a perfect pop that catches aggressive CTs.", difficulty: "Easy" },
+      { type: "molotov", name: "Pit Molotov from Apartments", from: "Apartments", description: "Aim at the wall above pit from apartments balcony. Forces the AWPer out of pit during A exec.", difficulty: "Medium" },
+    ],
+    highlights: [
+      { title: "s1mple 1v3 AWP clutch", player: "s1mple", event: "Cologne 2018", round: "Round 30", description: "s1mple hit three insane flick shots to win a 1v3 and save NAVI from elimination." },
+      { title: "flusha 4k through smoke", player: "flusha", event: "DreamHack Winter 2014", round: "Round 15", description: "The controversial 4k through smoke on B site that became one of the most debated plays ever." },
+    ],
+    recentResults: [
+      { team1: "Vitality", team1Logo: logo.vitality, score1: 16, team2: "Spirit", team2Logo: logo.spirit, score2: 9, event: "IEM Katowice 2026", date: "Today" },
+      { team1: "NAVI", team1Logo: logo.navi, score1: 16, team2: "G2", team2Logo: logo.g2, score2: 13, event: "BLAST Premier", date: "Yesterday" },
+    ],
+  },
+  {
+    slug: "dust2",
+    name: "Dust II",
+    image: gamingKeyboard,
+    description: "The most famous map in FPS history. Dust II's simple yet deep layout makes it perfect for both casual and pro play. Long range duels, mid control, and fast rotations define gameplay here.",
+    pool: "active",
+    ctWinRate: 50.8,
+    tWinRate: 49.2,
+    avgRounds: 25.8,
+    pickRate: 18.7,
+    banRate: 22.4,
+    totalProMatches: 18560,
+    bestTeams: [
+      { name: "G2 Esports", logo: logo.g2, winRate: 72.3 },
+      { name: "FaZe Clan", logo: logo.faze, winRate: 69.8 },
+      { name: "FURIA", logo: logo.furia, winRate: 67.5 },
+      { name: "MOUZ", logo: logo.mouz, winRate: 65.2 },
+      { name: "Heroic", logo: logo.heroic, winRate: 64.1 },
+    ],
+    callouts: ["A Site", "A Long", "A Short", "A Car", "Goose", "A Platform", "CT Spawn", "Mid", "Mid Doors", "B Site", "B Tunnels", "Upper Tunnels", "B Car", "B Window", "B Closet", "Catwalk", "T Spawn", "Outside Long", "Pit", "Xbox"],
+    utilityGuides: [
+      { type: "smoke", name: "Cross Smoke from T Spawn", from: "T Spawn", description: "Blocks mid doors so you can cross to B tunnels safely. Essential T-side fundamental.", difficulty: "Easy" },
+      { type: "smoke", name: "A Long Corner Smoke", from: "A Long", description: "Throw at the corner of A long to block the CT's vision from the site. Allows safe entry.", difficulty: "Easy" },
+      { type: "flash", name: "A Long Flash", from: "Outside Long", description: "Pop flash over the wall from outside long. Perfect for peeking long doors.", difficulty: "Easy" },
+      { type: "molotov", name: "B Car Molotov", from: "B Tunnels", description: "Molotov the car position on B site from tunnels entrance.", difficulty: "Medium" },
+    ],
+    highlights: [
+      { title: "ScreaM's one-taps on Long", player: "ScreaM", event: "ECS Season 2", round: "Round 8", description: "The Headshot Machine hit 4 consecutive one-taps at Long, showcasing the purest aim in CS history." },
+      { title: "s1mple no-scope across mid", player: "s1mple", event: "ESL One Cologne 2016", round: "Round 22", description: "s1mple hit a falling no-scope AWP shot through mid doors that defied all logic." },
+    ],
+    recentResults: [
+      { team1: "G2", team1Logo: logo.g2, score1: 16, team2: "FaZe", team2Logo: logo.faze, score2: 12, event: "ESL Pro League", date: "Mar 2" },
+      { team1: "FURIA", team1Logo: logo.furia, score1: 13, team2: "Liquid", team2Logo: logo.liquid, score2: 16, event: "BLAST Premier", date: "Mar 1" },
+    ],
+  },
+  {
+    slug: "anubis",
+    name: "Anubis",
+    image: neonLights,
+    description: "An ancient Egyptian-themed map that joined the competitive pool in CS2. Known for its unique vertical gameplay, water canal, and multi-level engagements. Teams are still developing the meta.",
+    pool: "active",
+    ctWinRate: 54.1,
+    tWinRate: 45.9,
+    avgRounds: 27.8,
+    pickRate: 15.3,
+    banRate: 25.8,
+    totalProMatches: 3240,
+    bestTeams: [
+      { name: "Team Spirit", logo: logo.spirit, winRate: 73.4 },
+      { name: "MOUZ", logo: logo.mouz, winRate: 70.2 },
+      { name: "G2 Esports", logo: logo.g2, winRate: 68.9 },
+      { name: "Natus Vincere", logo: logo.navi, winRate: 66.5 },
+      { name: "Heroic", logo: logo.heroic, winRate: 64.8 },
+    ],
+    callouts: ["A Site", "A Main", "A Connector", "Palace", "Pillar", "Water", "Canal", "Mid", "Bridge", "B Site", "B Main", "B Connector", "Ruins", "Heaven", "CT Spawn", "T Spawn", "Walkway", "Boat", "Alley", "Street"],
+    utilityGuides: [
+      { type: "smoke", name: "Bridge Smoke from T Spawn", from: "T Spawn", description: "Blocks bridge crossing to allow mid control takes. Standard T-side opener.", difficulty: "Medium" },
+      { type: "smoke", name: "Heaven Smoke for B Execute", from: "B Main", description: "Blocks the heaven/elevated position watching B site. Critical for any B execute.", difficulty: "Medium" },
+      { type: "flash", name: "Canal Pop Flash", from: "Canal", description: "Bounce off the wall in canal for a flash that catches A site defenders.", difficulty: "Hard" },
+      { type: "molotov", name: "A Pillar Molotov", from: "A Main", description: "Forces the defender from behind the pillar on A site. Key to clearing common positions.", difficulty: "Medium" },
+    ],
+    highlights: [
+      { title: "donk ace through water", player: "donk", event: "BLAST Premier 2025", round: "Round 18", description: "donk pushed through the canal and aced the entire CT side with a Deagle in a force buy round." },
+    ],
+    recentResults: [
+      { team1: "G2", team1Logo: logo.g2, score1: 7, team2: "Liquid", team2Logo: logo.liquid, score2: 10, event: "BLAST Premier", date: "Today" },
+      { team1: "Spirit", team1Logo: logo.spirit, score1: 16, team2: "MOUZ", team2Logo: logo.mouz, score2: 12, event: "IEM Katowice 2026", date: "Yesterday" },
+    ],
+  },
+  {
+    slug: "ancient",
+    name: "Ancient",
+    image: conferenceHall,
+    description: "Set in ancient Aztec ruins, this map features a compact layout with tight angles and quick rotations. It has evolved significantly since its introduction, becoming a staple in competitive play.",
+    pool: "active",
+    ctWinRate: 55.2,
+    tWinRate: 44.8,
+    avgRounds: 27.3,
+    pickRate: 14.8,
+    banRate: 20.1,
+    totalProMatches: 4560,
+    bestTeams: [
+      { name: "Vitality", logo: logo.vitality, winRate: 75.8 },
+      { name: "FaZe Clan", logo: logo.faze, winRate: 72.1 },
+      { name: "Cloud9", logo: logo.cloud9, winRate: 68.4 },
+      { name: "Astralis", logo: logo.astralis, winRate: 66.7 },
+      { name: "NAVI", logo: logo.navi, winRate: 65.3 },
+    ],
+    callouts: ["A Site", "A Main", "Donut", "Elbow", "Temple", "Cave", "Mid", "B Site", "B Ramp", "Alley", "CT Spawn", "T Spawn", "Jaguar", "Totem", "Red Room", "Water", "Side Path", "House", "Garden", "Sniper Nest"],
+    utilityGuides: [
+      { type: "smoke", name: "Donut Smoke from A Main", from: "A Main", description: "Blocks the donut connection allowing you to take A without being flanked.", difficulty: "Easy" },
+      { type: "smoke", name: "CT Smoke for B Execute", from: "B Ramp", description: "Blocks CT spawn rotation to B site. Essential for any B take.", difficulty: "Medium" },
+      { type: "flash", name: "A Site Entry Flash", from: "A Main", description: "Bounce off the left wall for a flash that pops right as you enter A site.", difficulty: "Easy" },
+      { type: "molotov", name: "Cave Molotov from Mid", from: "Mid", description: "Clears the cave position which is a common off-angle hold.", difficulty: "Hard" },
+    ],
+    highlights: [
+      { title: "ZywOo 1v3 retake on B", player: "ZywOo", event: "PGL Major 2025", round: "Match Point", description: "ZywOo clutched a 1v3 retake on B site at match point to keep Vitality alive in the Major." },
+    ],
+    recentResults: [
+      { team1: "Vitality", team1Logo: logo.vitality, score1: 16, team2: "Astralis", team2Logo: logo.astralis, score2: 10, event: "IEM Katowice 2026", date: "Mar 2" },
+    ],
+  },
+  {
+    slug: "nuke",
+    name: "Nuke",
+    image: pcBuild,
+    description: "A nuclear power plant map with a unique dual-level layout. Nuke's vertical gameplay, with A site above B site, creates a distinct tactical challenge. Sound plays a massive role here.",
+    pool: "active",
+    ctWinRate: 57.4,
+    tWinRate: 42.6,
+    avgRounds: 28.2,
+    pickRate: 12.1,
+    banRate: 28.7,
+    totalProMatches: 8920,
+    bestTeams: [
+      { name: "Astralis", logo: logo.astralis, winRate: 78.3 },
+      { name: "Natus Vincere", logo: logo.navi, winRate: 73.6 },
+      { name: "FaZe Clan", logo: logo.faze, winRate: 70.2 },
+      { name: "Team Spirit", logo: logo.spirit, winRate: 68.9 },
+      { name: "Vitality", logo: logo.vitality, winRate: 67.1 },
+    ],
+    callouts: ["A Site", "Heaven", "Hell", "Hut", "Main", "Squeaky", "Vent", "B Site", "Ramp", "Secret", "Decon", "CT Spawn", "T Spawn", "Outside", "Silo", "Yard", "Garage", "Control Room", "Trophy", "Radio"],
+    utilityGuides: [
+      { type: "smoke", name: "Heaven Smoke from Outside", from: "Outside", description: "Blocks heaven allowing safe plant on A site. One of the most important smokes on the map.", difficulty: "Hard" },
+      { type: "smoke", name: "Ramp Smoke from T Spawn", from: "T Spawn", description: "Blocks CT vision down ramp. Allows B site take.", difficulty: "Medium" },
+      { type: "flash", name: "Squeaky Door Flash", from: "Lobby", description: "Flash through squeaky door. Pop flash catches anyone playing on A site.", difficulty: "Easy" },
+      { type: "molotov", name: "Vent Molotov from Outside", from: "Outside", description: "Molotov into the vent to deny rotations from B to A. Critical for splits.", difficulty: "Hard" },
+    ],
+    highlights: [
+      { title: "device 4k AWP hold", player: "device", event: "IEM Katowice 2019", round: "Round 27", description: "device held outside with the AWP and hit four consecutive picks to shut down the T execute." },
+    ],
+    recentResults: [
+      { team1: "NAVI", team1Logo: logo.navi, score1: 16, team2: "Spirit", team2Logo: logo.spirit, score2: 14, event: "IEM Katowice 2026", date: "Yesterday" },
+    ],
+  },
+  {
+    slug: "tuscan",
+    name: "Tuscan",
+    image: esportStage,
+    description: "The long-awaited return of Tuscan to competitive CS! Set in an Italian town, Tuscan features wide open spaces, complex mid control, and multiple angles. It replaced Vertigo in the active pool.",
+    pool: "active",
+    ctWinRate: 51.2,
+    tWinRate: 48.8,
+    avgRounds: 26.1,
+    pickRate: 8.9,
+    banRate: 18.5,
+    totalProMatches: 890,
+    bestTeams: [
+      { name: "G2 Esports", logo: logo.g2, winRate: 71.2 },
+      { name: "MOUZ", logo: logo.mouz, winRate: 68.5 },
+      { name: "FaZe Clan", logo: logo.faze, winRate: 66.3 },
+      { name: "Heroic", logo: logo.heroic, winRate: 64.8 },
+      { name: "FURIA", logo: logo.furia, winRate: 63.1 },
+    ],
+    callouts: ["A Site", "A Main", "A Halls", "Ivy", "Balcony", "Mid", "Connector", "B Site", "B Lobby", "B Halls", "CT Spawn", "T Spawn", "Garage", "Arch", "Vineyards", "Church", "Patio", "Stairs", "Olive", "Fountain"],
+    utilityGuides: [
+      { type: "smoke", name: "Connector Smoke from T Spawn", from: "T Spawn", description: "Blocks connector to allow safe mid control or A split. Still being optimized in the meta.", difficulty: "Medium" },
+      { type: "smoke", name: "Church Smoke for B Execute", from: "B Lobby", description: "Covers the church angle watching B site. Essential for B executes.", difficulty: "Easy" },
+      { type: "flash", name: "A Main Entry Flash", from: "A Main", description: "Pop flash around the corner into A main. Catches defenders off guard.", difficulty: "Easy" },
+    ],
+    highlights: [
+      { title: "m0NESY ace on debut", player: "m0NESY", event: "ESL Pro League S21", round: "Round 5", description: "m0NESY opened Tuscan's competitive debut with a clean ace, setting the tone for G2's dominance on the map." },
+    ],
+    recentResults: [
+      { team1: "G2", team1Logo: logo.g2, score1: 16, team2: "MOUZ", team2Logo: logo.mouz, score2: 11, event: "ESL Pro League", date: "Mar 1" },
+    ],
+  },
+  {
+    slug: "vertigo",
+    name: "Vertigo",
+    image: headphones,
+    description: "Set on top of a skyscraper under construction, Vertigo was known for its tight corridors, vertical duels, and unique aesthetic. Removed from the active pool in 2026 after the Tuscan update.",
+    pool: "removed",
+    ctWinRate: 53.5,
+    tWinRate: 46.5,
+    avgRounds: 27.6,
+    pickRate: 0,
+    banRate: 0,
+    totalProMatches: 6780,
+    bestTeams: [
+      { name: "Astralis", logo: logo.astralis, winRate: 77.5 },
+      { name: "Team Liquid", logo: logo.liquid, winRate: 73.1 },
+      { name: "Natus Vincere", logo: logo.navi, winRate: 71.8 },
+      { name: "Cloud9", logo: logo.cloud9, winRate: 69.4 },
+      { name: "Complexity", logo: logo.complexity, winRate: 67.2 },
+    ],
+    callouts: ["A Site", "A Ramp", "Elevator", "Scaffolding", "Heaven", "Hell", "B Site", "B Stairs", "B Default", "Generator", "Mid", "CT Spawn", "T Spawn", "Sandbags", "Silo", "Ladder", "Window", "Tunnels", "Construction", "Bridge"],
+    utilityGuides: [
+      { type: "smoke", name: "CT Smoke from T Stairs", from: "T Stairs", description: "Blocks CT rotation to A site. Classic Vertigo execute smoke.", difficulty: "Easy" },
+      { type: "flash", name: "B Stairs Flash", from: "B Stairs", description: "Pop flash from stairs to clear site. Bounces off ceiling.", difficulty: "Medium" },
+    ],
+    highlights: [
+      { title: "gla1ve's perfect B execute", player: "gla1ve", event: "Stockholm Major 2021", round: "Round 23", description: "Astralis showcased the perfect Vertigo B execute with gla1ve's calling, winning the round without a single trade." },
+    ],
+    recentResults: [],
+  },
+];
+
+// -- Highlights --
+export interface Highlight {
+  id: number;
+  title: string;
+  player: string;
+  playerImage: string;
+  team: string;
+  teamLogo: string;
+  event: string;
+  map: string;
+  type: "clutch" | "ace" | "awp" | "pistol" | "wallbang" | "deagle";
+  date: string;
+  views: number;
+  likes: number;
+  thumbnail: string;
+  description: string;
+}
+
+export const highlights: Highlight[] = [
+  { id: 1, title: "donk 1v4 AK clutch on Mirage", player: "donk", playerImage: playerPhoto.donk, team: "Spirit", teamLogo: logo.spirit, event: "IEM Katowice 2026", map: "Mirage", type: "clutch", date: "Today", views: 524000, likes: 41200, thumbnail: esportsArena, description: "In the semifinal, donk found himself in an impossible 1v4 situation. What followed was a masterclass in positioning and aim that will be remembered for years." },
+  { id: 2, title: "ZywOo insane AWP 4k holds B site", player: "ZywOo", playerImage: playerPhoto.zywoo, team: "Vitality", teamLogo: logo.vitality, event: "IEM Katowice 2026", map: "Inferno", type: "awp", date: "Today", views: 312000, likes: 28500, thumbnail: crowdArena, description: "ZywOo locked down banana with four consecutive AWP kills, denying FaZe's B execute completely." },
+  { id: 3, title: "NiKo pistol round ace with USP-S", player: "NiKo", playerImage: playerPhoto.niko, team: "G2", teamLogo: logo.g2, event: "BLAST Premier 2026", map: "Dust II", type: "pistol", date: "Yesterday", views: 267000, likes: 22300, thumbnail: gamingKeyboard, description: "NiKo opened the half with a clean pistol ace, hitting all five headshots with the USP-S." },
+  { id: 4, title: "m0NESY no-scope collateral through smoke", player: "m0NESY", playerImage: playerPhoto.m0nesy, team: "G2", teamLogo: logo.g2, event: "ESL Pro League S21", map: "Anubis", type: "awp", date: "Yesterday", views: 445000, likes: 38100, thumbnail: neonLights, description: "A blind no-scope through smoke that collateraled two players. The entire arena erupted." },
+  { id: 5, title: "ropz 1v3 ninja defuse on Nuke", player: "ropz", playerImage: playerPhoto.ropz, team: "FaZe", teamLogo: logo.faze, event: "IEM Katowice 2026", map: "Nuke", type: "clutch", date: "Mar 2", views: 198000, likes: 15600, thumbnail: pcBuild, description: "ropz hid in secret, waited for all Ts to rotate away, and pulled off the ninja defuse to save the half." },
+  { id: 6, title: "donk Deagle ace on eco round", player: "donk", playerImage: playerPhoto.donk, team: "Spirit", teamLogo: logo.spirit, event: "BLAST Premier 2026", map: "Ancient", type: "deagle", date: "Mar 2", views: 389000, likes: 31200, thumbnail: conferenceHall, description: "On a full eco, donk bought a Deagle and proceeded to one-tap the entire enemy team in 8 seconds." },
+  { id: 7, title: "ZywOo wallbang triple through mid doors", player: "ZywOo", playerImage: playerPhoto.zywoo, team: "Vitality", teamLogo: logo.vitality, event: "ESL Pro League S21", map: "Dust II", type: "wallbang", date: "Mar 1", views: 276000, likes: 21800, thumbnail: gamingKeyboard, description: "ZywOo wallbanged three players through mid doors with the AWP in rapid succession." },
+  { id: 8, title: "NiKo 1v2 clutch with 1 HP", player: "NiKo", playerImage: playerPhoto.niko, team: "G2", teamLogo: logo.g2, event: "IEM Katowice 2026", map: "Mirage", type: "clutch", date: "Mar 1", views: 334000, likes: 27500, thumbnail: crowdArena, description: "At 1 HP, NiKo hit two insane headshots to win the round and secure the map for G2." },
+  { id: 9, title: "m0NESY jumping AWP shot on Ancient", player: "m0NESY", playerImage: playerPhoto.m0nesy, team: "G2", teamLogo: logo.g2, event: "BLAST Premier 2026", map: "Ancient", type: "awp", date: "Feb 28", views: 512000, likes: 42100, thumbnail: conferenceHall, description: "Reminiscent of the legendary coldzera play, m0NESY hit a jumping AWP shot at A Main." },
+  { id: 10, title: "ropz spray transfer 4k on Inferno", player: "ropz", playerImage: playerPhoto.ropz, team: "FaZe", teamLogo: logo.faze, event: "ESL Pro League S21", map: "Inferno", type: "ace", date: "Feb 27", views: 178000, likes: 14200, thumbnail: esportsArena, description: "ropz pulled off a ridiculous spray transfer from banana to dark, killing four players in one spray." },
+];
+
+// -- Academy Guides --
+export interface Guide {
+  id: number;
+  title: string;
+  category: "economy" | "aim" | "movement" | "utility" | "communication" | "mindset";
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  readTime: string;
+  description: string;
+  image: string;
+  sections: { title: string; content: string }[];
+}
+
+export const academyGuides: Guide[] = [
+  {
+    id: 1, title: "CS2 Economy Guide — Buy, Save, Force", category: "economy", difficulty: "Beginner", readTime: "8 min", image: trophyCup,
+    description: "Master the CS2 economy system to make smart buy decisions every round.",
+    sections: [
+      { title: "Round Loss Bonus", content: "After losing consecutive rounds, your team earns increasing loss bonuses: $1400, $1900, $2400, $2900, $3400. This resets when you win a round." },
+      { title: "When to Full Buy", content: "Full buy when your team has $4000+ (rifles) or $4750+ (AWP). Ensure at least 3 players can buy full utility." },
+      { title: "When to Eco", content: "Eco when your team can't afford rifles. Buy only pistols or nothing. Save for next round's full buy." },
+      { title: "Force Buy", content: "Force buy on crucial rounds (match point, half-ending). SMGs, Deagles, or cheap rifles + limited utility." },
+      { title: "Kill Rewards", content: "Different weapons give different kill rewards. Shotguns: $900, SMGs: $600, Rifles: $300, AWP: $100, Knife: $1500." },
+    ],
+  },
+  {
+    id: 2, title: "Aim Training Routine — From Silver to Global", category: "aim", difficulty: "Beginner", readTime: "12 min", image: gamingSetup,
+    description: "A structured daily aim training routine to improve your mechanics.",
+    sections: [
+      { title: "Warmup (10 min)", content: "Start with Aim Botz or a similar workshop map. Focus on flicking between bots at medium distance. 500 kills minimum." },
+      { title: "Tracking (5 min)", content: "Use a strafing bot map. Track moving targets smoothly without over-aiming. Focus on crosshair placement." },
+      { title: "Spray Control (10 min)", content: "Practice spray patterns for AK-47 and M4A4 against a wall. Then apply against bots. Master first 10 bullets first." },
+      { title: "Flick Shots (5 min)", content: "Use Aim Lab or Kovaak's for flick training. Focus on accuracy over speed initially." },
+      { title: "Deathmatch (15 min)", content: "Join a community FFA DM server. Focus on crosshair placement at head level. Don't chase kills." },
+    ],
+  },
+  {
+    id: 3, title: "Movement Mechanics — Counter-strafing & Peeking", category: "movement", difficulty: "Intermediate", readTime: "10 min", image: gamingKeyboard,
+    description: "Learn the movement mechanics that separate good players from great ones.",
+    sections: [
+      { title: "Counter-strafing", content: "Press the opposite direction key before shooting. A→D or D→A. This stops your momentum instantly for accurate shots." },
+      { title: "Jiggle Peeking", content: "Tap A or D to quickly peek and unpee. Used to bait out AWP shots or gather info without committing." },
+      { title: "Wide Swinging", content: "Sprint past an angle with W+A or W+D. Forces opponents to flick. Best against AWPs or holding angles." },
+      { title: "Shoulder Peeking", content: "Expose only your shoulder to bait a shot. Immediately pull back. Perfect for info gathering." },
+      { title: "Bunny Hopping", content: "Time your jumps on landing while air-strafing. Difficult in CS2 but can give speed advantages in specific spots." },
+    ],
+  },
+  {
+    id: 4, title: "Crosshair Settings — Find Your Perfect Setup", category: "aim", difficulty: "Beginner", readTime: "6 min", image: gamingMonitor,
+    description: "Explore crosshair styles used by pros and find what works for you.",
+    sections: [
+      { title: "Static vs Dynamic", content: "Static crosshairs don't move when you shoot — preferred by most pros. Dynamic crosshairs expand to show inaccuracy." },
+      { title: "Size & Gap", content: "Small crosshairs (size 2-3, gap -2 to 0) are most popular. They're precise without covering enemies at range." },
+      { title: "Color Choices", content: "Green (#00FF00) and cyan (#00FFFF) are most popular. They contrast well with most map textures." },
+      { title: "Pro Settings", content: "donk: size 2, gap -1, thickness 0, green. s1mple: size 3, gap -1, thickness 1, cyan. NiKo: size 1, gap -3, thickness 0, green." },
+      { title: "Dot Crosshair", content: "Some players use a single dot. Pros: extremely precise. Cons: hard to track during movement. Try cl_crosshairsize 0 with dot enabled." },
+    ],
+  },
+  {
+    id: 5, title: "Advanced Utility Usage — Win Rounds With Nades", category: "utility", difficulty: "Advanced", readTime: "15 min", image: esportStage,
+    description: "Learn how pro teams use coordinated utility to execute and retake sites.",
+    sections: [
+      { title: "Smoke Principles", content: "Always smoke before you need it. One-way smokes give massive advantages. Coordinate smokes with teammates for site executes." },
+      { title: "Flash Coordination", content: "Pop flashes (thrown so they pop immediately on the enemy's screen) are key. Call out your flashes so teammates can peek." },
+      { title: "Molotov Timing", content: "Molotovs deny positions for 7 seconds. Use them to clear common holds, delay pushes, or force enemies into open positions." },
+      { title: "HE Nade Stacks", content: "Coordinate HE grenades with teammates. Two HEs at the same spot can deal 100+ damage, getting kills through walls." },
+      { title: "Fake Executes", content: "Throw execute utility at one site, then rotate. Forces CT rotations. The key is selling the fake with proper utility count." },
+    ],
+  },
+  {
+    id: 6, title: "Communication & Callouts Guide", category: "communication", difficulty: "Beginner", readTime: "7 min", image: teamPhoto,
+    description: "Effective communication wins more rounds than raw aim. Learn how to call.",
+    sections: [
+      { title: "Essential Callouts", content: "Always call: enemy position, number of enemies, weapon type, and HP if known. 'Two B tunnels, one AWP' is better than 'they're B'." },
+      { title: "Death Calls", content: "When you die, give a quick call then stay quiet. Don't clutter comms. 'Died to AWP mid, one player' is enough." },
+      { title: "Economy Calls", content: "IGL should call team economy decisions. 'Full buy', 'eco', or 'force' at round start. Discuss before freeze time ends." },
+      { title: "Mid-round Calls", content: "Only the IGL should make mid-round calls. Others provide info. Avoid conflicting calls or backseat gaming." },
+      { title: "Positive Comms", content: "Stay positive even when losing. 'Nice try', 'we got this next round' keeps morale up. Toxicity loses games." },
+    ],
+  },
+  {
+    id: 7, title: "Mental Game — Dealing With Tilt and Pressure", category: "mindset", difficulty: "Intermediate", readTime: "9 min", image: gamingChair,
+    description: "The mental aspect of competitive CS is often overlooked but critical.",
+    sections: [
+      { title: "Recognizing Tilt", content: "Signs: rushing without thinking, overaggression, blaming teammates, checking stats mid-game. If you notice these, take a breath." },
+      { title: "Reset Between Rounds", content: "Take a deep breath during freeze time. Remind yourself of the game plan. Don't dwell on the last round." },
+      { title: "Dealing With Loss Streaks", content: "After 3 losses in a row, take a 15-30 minute break. Play aim trainers or watch demos. Don't queue while tilted." },
+      { title: "Clutch Mentality", content: "In clutch situations: slow down, think about info you have, play time, use utility wisely. Panic is the enemy." },
+      { title: "Pre-game Routine", content: "Warm up for 15-20 minutes before ranked. Set up your environment: water, comfy position, minimal distractions." },
+    ],
+  },
+];
+
 // -- Player of the Week --
 export const playerOfTheWeek: PlayerHighlight = {
   player: topPlayers[0],
