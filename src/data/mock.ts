@@ -100,13 +100,13 @@ const logo = {
   cloud9: `${B}/teams/cloud9.png`,
   complexity: `${B}/teams/complexity.png`,
   pain: `${B}/teams/pain.png`,
-  falcons: `${B}/teams/falcons.png`,
-  imperial: `${B}/teams/imperial.png`,
+  falcons: `${B}/teams/falcons.svg`,
+  imperial: `${B}/teams/imperial.svg`,
   nine_z: `${B}/teams/9z.png`,
-  mongolz: `${B}/teams/mongolz.png`,
+  mongolz: `${B}/teams/mongolz.svg`,
   virtuspro: `${B}/teams/virtuspro.png`,
-  gamerlegion: `${B}/teams/gamerlegion.png`,
-  saw: `${B}/teams/saw.png`,
+  gamerlegion: `${B}/teams/gamerlegion.svg`,
+  saw: `${B}/teams/saw.svg`,
 };
 
 // -- Player Photos (local, downloaded from Liquipedia) --
