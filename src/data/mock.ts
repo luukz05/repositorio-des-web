@@ -82,58 +82,55 @@ export interface ForumThread {
   pinned?: boolean;
 }
 
-// -- Team Logos (Liquipedia Commons) --
+// -- Team Logos (local, downloaded from Liquipedia) --
 const logo = {
-  navi: "https://liquipedia.net/commons/images/thumb/9/95/Natus_Vincere_2021_allmode.png/600px-Natus_Vincere_2021_allmode.png",
-  vitality: "https://liquipedia.net/commons/images/thumb/e/e4/Team_Vitality_2023_lightmode.png/600px-Team_Vitality_2023_lightmode.png",
-  faze: "https://liquipedia.net/commons/images/thumb/f/f9/FaZe_Esports_2026_lightmode.png/600px-FaZe_Esports_2026_lightmode.png",
-  g2: "https://liquipedia.net/commons/images/thumb/4/4b/G2_Esports_2020_lightmode.png/600px-G2_Esports_2020_lightmode.png",
-  spirit: "https://liquipedia.net/commons/images/thumb/6/66/Team_Spirit_2022_lightmode.png/600px-Team_Spirit_2022_lightmode.png",
-  liquid: "https://liquipedia.net/commons/images/thumb/0/01/Team_Liquid_2024_lightmode.png/600px-Team_Liquid_2024_lightmode.png",
-  mouz: "https://liquipedia.net/commons/images/thumb/c/c2/MOUZ_2021_allmode.png/600px-MOUZ_2021_allmode.png",
-  heroic: "https://liquipedia.net/commons/images/thumb/0/0d/HEROIC_2024_allmode.png/600px-HEROIC_2024_allmode.png",
-  furia: "https://liquipedia.net/commons/images/thumb/a/aa/FURIA_Esports_allmode.png/600px-FURIA_Esports_allmode.png",
-  astralis: "https://liquipedia.net/commons/images/thumb/b/b5/Astralis_2020_full_allmode.png/600px-Astralis_2020_full_allmode.png",
-  cloud9: "https://liquipedia.net/commons/images/thumb/b/bb/Cloud9_2023_allmode.png/600px-Cloud9_2023_allmode.png",
-  complexity: "https://liquipedia.net/commons/images/thumb/c/c7/Complexity_2025_full_allmode.png/600px-Complexity_2025_full_allmode.png",
-  pain: "https://liquipedia.net/commons/images/thumb/2/2e/PaiN_Gaming_2016_allmode.png/600px-PaiN_Gaming_2016_allmode.png",
-  falcons: "https://liquipedia.net/commons/images/thumb/a/a6/Team_Falcons_allmode.png/600px-Team_Falcons_allmode.png",
-  imperial: "https://liquipedia.net/commons/images/thumb/d/df/Imperial_Esports_2024_allmode.png/600px-Imperial_Esports_2024_allmode.png",
-  nine_z: "https://liquipedia.net/commons/images/thumb/c/c4/9z_Team_allmode.png/600px-9z_Team_allmode.png",
-  mongolz: "https://liquipedia.net/commons/images/thumb/1/13/The_MongolZ_2024_allmode.png/600px-The_MongolZ_2024_allmode.png",
-  virtuspro: "https://liquipedia.net/commons/images/thumb/1/1e/Virtus.pro_2019_allmode.png/600px-Virtus.pro_2019_allmode.png",
-  gamerlegion: "https://liquipedia.net/commons/images/thumb/0/0d/GamerLegion_2022_allmode.png/600px-GamerLegion_2022_allmode.png",
-  saw: "https://liquipedia.net/commons/images/thumb/b/b0/SAW_allmode.png/600px-SAW_allmode.png",
+  navi: "/teams/navi.png",
+  vitality: "/teams/vitality.png",
+  faze: "/teams/faze.png",
+  g2: "/teams/g2.png",
+  spirit: "/teams/spirit.png",
+  liquid: "/teams/liquid.png",
+  mouz: "/teams/mouz.png",
+  heroic: "/teams/heroic.png",
+  furia: "/teams/furia.png",
+  astralis: "/teams/astralis.png",
+  cloud9: "/teams/cloud9.png",
+  complexity: "/teams/complexity.png",
+  pain: "/teams/pain.png",
+  falcons: "/teams/falcons.png",
+  imperial: "/teams/imperial.png",
+  nine_z: "/teams/9z.png",
+  mongolz: "/teams/mongolz.png",
+  virtuspro: "/teams/virtuspro.png",
+  gamerlegion: "/teams/gamerlegion.png",
+  saw: "/teams/saw.png",
 };
 
-// -- Player Photos (Liquipedia Commons) --
+// -- Player Photos (local, downloaded from Liquipedia) --
 const playerPhoto = {
-  donk: "https://liquipedia.net/commons/images/thumb/8/8e/Donk_at_BLAST_Open_Spring_2025.jpg/600px-Donk_at_BLAST_Open_Spring_2025.jpg",
-  zywoo: "https://liquipedia.net/commons/images/thumb/f/ff/ZywOo_at_BLAST_Open_Spring_2025.jpg/600px-ZywOo_at_BLAST_Open_Spring_2025.jpg",
-  niko: "https://liquipedia.net/commons/images/thumb/2/27/NiKo_at_IEM_Katowice_2025.jpg/600px-NiKo_at_IEM_Katowice_2025.jpg",
-  m0nesy: "https://liquipedia.net/commons/images/thumb/e/e3/M0NESY_at_BLAST_Rivals_Spring_2025.jpg/600px-M0NESY_at_BLAST_Rivals_Spring_2025.jpg",
-  ropz: "https://liquipedia.net/commons/images/thumb/6/65/Ropz_at_BLAST_Bounty_Spring_2025.jpg/600px-Ropz_at_BLAST_Bounty_Spring_2025.jpg",
+  donk: "/players/donk.jpg",
+  zywoo: "/players/zywoo.jpg",
+  niko: "/players/niko.jpg",
+  m0nesy: "/players/m0nesy.jpg",
+  ropz: "/players/ropz.jpg",
 };
 
-// -- News Images (Unsplash) --
-const img = (id: string, w = 800, h = 450) =>
-  `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&q=80`;
-
-const esportsArena = img("photo-1542751371-adc38448a05e");
-const gamingSetup = img("photo-1593305841991-05c297ba4575");
-const crowdArena = img("photo-1540039155733-5bb30b53aa14");
-const gamingKeyboard = img("photo-1616588589676-62b3d4ff6e04");
-const esportStage = img("photo-1511882150382-421056c89033");
-const trophyCup = img("photo-1567521464027-f127ff144326");
-const gamingMonitor = img("photo-1600861194942-f883de0dfe96");
-const teamPhoto = img("photo-1552820728-8b83bb6b2b28");
-const conferenceHall = img("photo-1540575467063-178a50c2df87");
-const gamingChair = img("photo-1598550476439-6847785fcea6");
-const neonLights = img("photo-1550745165-9bc0b252726f");
-const pcBuild = img("photo-1587202372775-e229f172b9d7");
-const headphones = img("photo-1618366712010-f4ae9c647dcb");
-const stadium = img("photo-1459749411175-04bf5292ceea");
-const fireworks = img("photo-1533174072545-7a4b6ad7a6c3");
+// -- News/Event Images (local, downloaded from Unsplash) --
+const esportsArena = "/news/arena.jpg";
+const gamingSetup = "/news/setup.jpg";
+const crowdArena = "/news/crowd.jpg";
+const gamingKeyboard = "/news/keyboard.jpg";
+const esportStage = "/news/stage.jpg";
+const trophyCup = "/news/trophy.jpg";
+const gamingMonitor = "/news/monitor.jpg";
+const teamPhoto = "/news/team.jpg";
+const conferenceHall = "/news/conference.jpg";
+const gamingChair = "/news/chair.jpg";
+const neonLights = "/news/neon.jpg";
+const pcBuild = "/news/pc.jpg";
+const headphones = "/news/headphones.jpg";
+const stadium = "/news/stadium.jpg";
+const fireworks = "/news/fireworks.jpg";
 
 // -- Country Flags (emoji) --
 const flag = {
