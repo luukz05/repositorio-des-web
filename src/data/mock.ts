@@ -2,7 +2,7 @@ export interface Team {
   name: string;
   color: string;
   abbr: string;
-  logo?: string;
+  logo: string;
 }
 
 export interface Match {
@@ -39,6 +39,7 @@ export interface RankedTeam {
   change: "up" | "down" | "same";
   changeVal?: number;
   region: string;
+  logo: string;
 }
 
 export interface Event {
@@ -60,13 +61,13 @@ export interface Player {
   realName: string;
   team: string;
   country: string;
+  countryFlag: string;
   rating: number;
   kd: string;
   adr: number;
   kast: string;
-  initial: string;
-  color: string;
   image: string;
+  teamLogo: string;
 }
 
 export interface ForumThread {
@@ -81,7 +82,40 @@ export interface ForumThread {
   pinned?: boolean;
 }
 
-// -- Images (Unsplash) --
+// -- Team Logos (Liquipedia Commons) --
+const logo = {
+  navi: "https://liquipedia.net/commons/images/thumb/9/95/Natus_Vincere_2021_allmode.png/600px-Natus_Vincere_2021_allmode.png",
+  vitality: "https://liquipedia.net/commons/images/thumb/e/e4/Team_Vitality_2023_lightmode.png/600px-Team_Vitality_2023_lightmode.png",
+  faze: "https://liquipedia.net/commons/images/thumb/f/f9/FaZe_Esports_2026_lightmode.png/600px-FaZe_Esports_2026_lightmode.png",
+  g2: "https://liquipedia.net/commons/images/thumb/4/4b/G2_Esports_2020_lightmode.png/600px-G2_Esports_2020_lightmode.png",
+  spirit: "https://liquipedia.net/commons/images/thumb/6/66/Team_Spirit_2022_lightmode.png/600px-Team_Spirit_2022_lightmode.png",
+  liquid: "https://liquipedia.net/commons/images/thumb/0/01/Team_Liquid_2024_lightmode.png/600px-Team_Liquid_2024_lightmode.png",
+  mouz: "https://liquipedia.net/commons/images/thumb/c/c2/MOUZ_2021_allmode.png/600px-MOUZ_2021_allmode.png",
+  heroic: "https://liquipedia.net/commons/images/thumb/0/0d/HEROIC_2024_allmode.png/600px-HEROIC_2024_allmode.png",
+  furia: "https://liquipedia.net/commons/images/thumb/a/aa/FURIA_Esports_allmode.png/600px-FURIA_Esports_allmode.png",
+  astralis: "https://liquipedia.net/commons/images/thumb/b/b5/Astralis_2020_full_allmode.png/600px-Astralis_2020_full_allmode.png",
+  cloud9: "https://liquipedia.net/commons/images/thumb/b/bb/Cloud9_2023_allmode.png/600px-Cloud9_2023_allmode.png",
+  complexity: "https://liquipedia.net/commons/images/thumb/c/c7/Complexity_2025_full_allmode.png/600px-Complexity_2025_full_allmode.png",
+  pain: "https://liquipedia.net/commons/images/thumb/2/2e/PaiN_Gaming_2016_allmode.png/600px-PaiN_Gaming_2016_allmode.png",
+  falcons: "https://liquipedia.net/commons/images/thumb/a/a6/Team_Falcons_allmode.png/600px-Team_Falcons_allmode.png",
+  imperial: "https://liquipedia.net/commons/images/thumb/d/df/Imperial_Esports_2024_allmode.png/600px-Imperial_Esports_2024_allmode.png",
+  nine_z: "https://liquipedia.net/commons/images/thumb/c/c4/9z_Team_allmode.png/600px-9z_Team_allmode.png",
+  mongolz: "https://liquipedia.net/commons/images/thumb/1/13/The_MongolZ_2024_allmode.png/600px-The_MongolZ_2024_allmode.png",
+  virtuspro: "https://liquipedia.net/commons/images/thumb/1/1e/Virtus.pro_2019_allmode.png/600px-Virtus.pro_2019_allmode.png",
+  gamerlegion: "https://liquipedia.net/commons/images/thumb/0/0d/GamerLegion_2022_allmode.png/600px-GamerLegion_2022_allmode.png",
+  saw: "https://liquipedia.net/commons/images/thumb/b/b0/SAW_allmode.png/600px-SAW_allmode.png",
+};
+
+// -- Player Photos (Liquipedia Commons) --
+const playerPhoto = {
+  donk: "https://liquipedia.net/commons/images/thumb/8/8e/Donk_at_BLAST_Open_Spring_2025.jpg/600px-Donk_at_BLAST_Open_Spring_2025.jpg",
+  zywoo: "https://liquipedia.net/commons/images/thumb/f/ff/ZywOo_at_BLAST_Open_Spring_2025.jpg/600px-ZywOo_at_BLAST_Open_Spring_2025.jpg",
+  niko: "https://liquipedia.net/commons/images/thumb/2/27/NiKo_at_IEM_Katowice_2025.jpg/600px-NiKo_at_IEM_Katowice_2025.jpg",
+  m0nesy: "https://liquipedia.net/commons/images/thumb/e/e3/M0NESY_at_BLAST_Rivals_Spring_2025.jpg/600px-M0NESY_at_BLAST_Rivals_Spring_2025.jpg",
+  ropz: "https://liquipedia.net/commons/images/thumb/6/65/Ropz_at_BLAST_Bounty_Spring_2025.jpg/600px-Ropz_at_BLAST_Bounty_Spring_2025.jpg",
+};
+
+// -- News Images (Unsplash) --
 const img = (id: string, w = 800, h = 450) =>
   `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&q=80`;
 
@@ -96,57 +130,44 @@ const teamPhoto = img("photo-1552820728-8b83bb6b2b28");
 const conferenceHall = img("photo-1540575467063-178a50c2df87");
 const gamingChair = img("photo-1598550476439-6847785fcea6");
 const neonLights = img("photo-1550745165-9bc0b252726f");
-const controller = img("photo-1612287230202-1ff1d85d1bdf");
 const pcBuild = img("photo-1587202372775-e229f172b9d7");
 const headphones = img("photo-1618366712010-f4ae9c647dcb");
 const stadium = img("photo-1459749411175-04bf5292ceea");
 const fireworks = img("photo-1533174072545-7a4b6ad7a6c3");
 
-const playerImg = (seed: number) =>
-  `https://api.dicebear.com/7.x/initials/svg?seed=player${seed}&backgroundColor=1a2332`;
+// -- Country Flags (emoji) --
+const flag = {
+  RU: "🇷🇺", FR: "🇫🇷", BA: "🇧🇦", EE: "🇪🇪", UA: "🇺🇦",
+  LV: "🇱🇻", IL: "🇮🇱", SK: "🇸🇰", BR: "🇧🇷", NO: "🇳🇴",
+};
 
 // -- Teams --
 export const teams: Team[] = [
-  { name: "Natus Vincere", color: "#fbbf24", abbr: "NAVI" },
-  { name: "Vitality", color: "#f87171", abbr: "VIT" },
-  { name: "FaZe Clan", color: "#60a5fa", abbr: "FaZe" },
-  { name: "G2 Esports", color: "#c084fc", abbr: "G2" },
-  { name: "Team Spirit", color: "#34d399", abbr: "Spirit" },
-  { name: "Team Liquid", color: "#38bdf8", abbr: "TL" },
-  { name: "MOUZ", color: "#2dd4bf", abbr: "MOUZ" },
-  { name: "Heroic", color: "#f472b6", abbr: "Heroic" },
-  { name: "FURIA", color: "#fbbf24", abbr: "FURIA" },
-  { name: "Astralis", color: "#fb923c", abbr: "Astralis" },
-  { name: "Cloud9", color: "#94a3b8", abbr: "C9" },
-  { name: "Complexity", color: "#60a5fa", abbr: "COL" },
-  { name: "paiN Gaming", color: "#4ade80", abbr: "paiN" },
-  { name: "Falcons", color: "#a78bfa", abbr: "Falcons" },
-  { name: "Imperial", color: "#f59e0b", abbr: "IMP" },
-  { name: "9z Team", color: "#e879f9", abbr: "9z" },
+  { name: "Natus Vincere", color: "#fbbf24", abbr: "NAVI", logo: logo.navi },
+  { name: "Vitality", color: "#f87171", abbr: "VIT", logo: logo.vitality },
+  { name: "FaZe Clan", color: "#60a5fa", abbr: "FaZe", logo: logo.faze },
+  { name: "G2 Esports", color: "#c084fc", abbr: "G2", logo: logo.g2 },
+  { name: "Team Spirit", color: "#34d399", abbr: "Spirit", logo: logo.spirit },
+  { name: "Team Liquid", color: "#38bdf8", abbr: "TL", logo: logo.liquid },
+  { name: "MOUZ", color: "#2dd4bf", abbr: "MOUZ", logo: logo.mouz },
+  { name: "Heroic", color: "#f472b6", abbr: "Heroic", logo: logo.heroic },
+  { name: "FURIA", color: "#fbbf24", abbr: "FURIA", logo: logo.furia },
+  { name: "Astralis", color: "#fb923c", abbr: "Astralis", logo: logo.astralis },
+  { name: "Cloud9", color: "#94a3b8", abbr: "C9", logo: logo.cloud9 },
+  { name: "Complexity", color: "#60a5fa", abbr: "COL", logo: logo.complexity },
+  { name: "paiN Gaming", color: "#4ade80", abbr: "paiN", logo: logo.pain },
+  { name: "Falcons", color: "#a78bfa", abbr: "Falcons", logo: logo.falcons },
+  { name: "Imperial", color: "#f59e0b", abbr: "IMP", logo: logo.imperial },
+  { name: "9z Team", color: "#e879f9", abbr: "9z", logo: logo.nine_z },
 ];
 
 const t = (i: number) => teams[i];
 
 // -- Live Matches --
 export const liveMatches: Match[] = [
-  {
-    id: 1,
-    team1: t(0), team2: t(2),
-    score1: 13, score2: 11,
-    event: "IEM Katowice 2026", format: "BO3", map: "Mirage", status: "live",
-  },
-  {
-    id: 2,
-    team1: t(1), team2: t(4),
-    score1: 16, score2: 9,
-    event: "IEM Katowice 2026", format: "BO3", map: "Inferno", status: "live",
-  },
-  {
-    id: 3,
-    team1: t(3), team2: t(5),
-    score1: 7, score2: 10,
-    event: "BLAST Premier", format: "BO1", map: "Anubis", status: "live",
-  },
+  { id: 1, team1: t(0), team2: t(2), score1: 13, score2: 11, event: "IEM Katowice 2026", format: "BO3", map: "Mirage", status: "live" },
+  { id: 2, team1: t(1), team2: t(4), score1: 16, score2: 9, event: "IEM Katowice 2026", format: "BO3", map: "Inferno", status: "live" },
+  { id: 3, team1: t(3), team2: t(5), score1: 7, score2: 10, event: "BLAST Premier", format: "BO1", map: "Anubis", status: "live" },
 ];
 
 export const upcomingMatches: Match[] = [
@@ -175,107 +196,42 @@ export const recentResults: Match[] = [
 
 // -- News --
 export const news: NewsArticle[] = [
-  {
-    id: 1,
-    title: "IEM Katowice 2026 Grand Finals: NAVI vs FaZe in an epic rematch for the title",
-    description: "After an incredible run through the lower bracket, FaZe Clan faces NAVI in a best-of-five grand final that promises to be one of the most exciting matches of the year.",
-    author: "HLTV Staff", time: "15 min ago", comments: 234,
-    tags: ["Major", "Hot"], image: esportsArena, featured: true,
-  },
-  {
-    id: 2,
-    title: "s1mple officially returns to competitive CS2 for upcoming Major cycle",
-    description: "After a brief hiatus, the GOAT returns to the active roster of NAVI. Fans and analysts alike are excited about the prospect.",
-    author: "Striker", time: "1h ago", comments: 891,
-    tags: ["Roster Move"], image: gamingSetup,
-  },
-  {
-    id: 3,
-    title: "Valve announces new map pool changes for CS2 competitive season",
-    description: "The latest update brings Tuscan into the active duty map pool while removing Vertigo, shaking up the competitive meta.",
-    author: "HLTV Staff", time: "2h ago", comments: 456,
-    tags: ["Update"], image: gamingKeyboard,
-  },
-  {
-    id: 4,
-    title: "Top 20 players of 2025: The final list revealed with surprising entries",
-    description: "donk takes the crown as the best player of 2025, becoming the youngest ever to claim the number one spot.",
-    author: "Nomad", time: "3h ago", comments: 1200,
-    tags: ["Awards"], image: trophyCup,
-  },
-  {
-    id: 5,
-    title: "BLAST Premier Spring Groups 2026: Schedule, format, and teams confirmed",
-    author: "HLTV Staff", time: "5h ago", comments: 189,
-    tags: ["Event"], image: crowdArena,
-  },
-  {
-    id: 6,
-    title: "Workshop creators highlight the best community skins of March 2026",
-    author: "HLTV Staff", time: "6h ago", comments: 342,
-    tags: ["Community"], image: neonLights,
-  },
-  {
-    id: 7,
-    title: "G2 Esports announce new performance facility in Berlin",
-    author: "Striker", time: "8h ago", comments: 156,
-    tags: ["Org News"], image: gamingChair,
-  },
-  {
-    id: 8,
-    title: "ESL Pro League Season 21: Groups and opening matchups revealed",
-    description: "The group draw is complete and the stage is set for one of the most stacked ESL Pro League seasons in history.",
-    author: "HLTV Staff", time: "10h ago", comments: 278,
-    tags: ["Event"], image: conferenceHall,
-  },
-  {
-    id: 9,
-    title: "Heroic complete roster with signing of rising Danish talent",
-    author: "Nomad", time: "12h ago", comments: 445,
-    tags: ["Roster Move"], image: teamPhoto,
-  },
-  {
-    id: 10,
-    title: "New anti-cheat measures coming to CS2 matchmaking next month",
-    author: "HLTV Staff", time: "14h ago", comments: 1890,
-    tags: ["Update"], image: pcBuild,
-  },
-  {
-    id: 11,
-    title: "FURIA sign promising Brazilian AWPer from Academy roster",
-    author: "Striker", time: "16h ago", comments: 367,
-    tags: ["Roster Move"], image: headphones,
-  },
-  {
-    id: 12,
-    title: "IEM Chengdu 2026 tickets go on sale next week with limited early bird pricing",
-    author: "HLTV Staff", time: "18h ago", comments: 98,
-    tags: ["Event"], image: stadium,
-  },
+  { id: 1, title: "IEM Katowice 2026 Grand Finals: NAVI vs FaZe in an epic rematch for the title", description: "After an incredible run through the lower bracket, FaZe Clan faces NAVI in a best-of-five grand final that promises to be one of the most exciting matches of the year.", author: "HLTV Staff", time: "15 min ago", comments: 234, tags: ["Major", "Hot"], image: esportsArena, featured: true },
+  { id: 2, title: "s1mple officially returns to competitive CS2 for upcoming Major cycle", description: "After a brief hiatus, the GOAT returns to the active roster of NAVI.", author: "Striker", time: "1h ago", comments: 891, tags: ["Roster Move"], image: gamingSetup },
+  { id: 3, title: "Valve announces new map pool changes for CS2 competitive season", description: "Tuscan enters the active duty map pool while Vertigo is removed.", author: "HLTV Staff", time: "2h ago", comments: 456, tags: ["Update"], image: gamingKeyboard },
+  { id: 4, title: "Top 20 players of 2025: The final list revealed with surprising entries", description: "donk takes the crown as the youngest ever #1.", author: "Nomad", time: "3h ago", comments: 1200, tags: ["Awards"], image: trophyCup },
+  { id: 5, title: "BLAST Premier Spring Groups 2026: Schedule, format, and teams confirmed", author: "HLTV Staff", time: "5h ago", comments: 189, tags: ["Event"], image: crowdArena },
+  { id: 6, title: "Workshop creators highlight the best community skins of March 2026", author: "HLTV Staff", time: "6h ago", comments: 342, tags: ["Community"], image: neonLights },
+  { id: 7, title: "G2 Esports announce new performance facility in Berlin", author: "Striker", time: "8h ago", comments: 156, tags: ["Org News"], image: gamingChair },
+  { id: 8, title: "ESL Pro League Season 21: Groups and opening matchups revealed", description: "The stage is set for one of the most stacked seasons.", author: "HLTV Staff", time: "10h ago", comments: 278, tags: ["Event"], image: conferenceHall },
+  { id: 9, title: "Heroic complete roster with signing of rising Danish talent", author: "Nomad", time: "12h ago", comments: 445, tags: ["Roster Move"], image: teamPhoto },
+  { id: 10, title: "New anti-cheat measures coming to CS2 matchmaking next month", author: "HLTV Staff", time: "14h ago", comments: 1890, tags: ["Update"], image: pcBuild },
+  { id: 11, title: "FURIA sign promising Brazilian AWPer from Academy roster", author: "Striker", time: "16h ago", comments: 367, tags: ["Roster Move"], image: headphones },
+  { id: 12, title: "IEM Chengdu 2026 tickets go on sale next week", author: "HLTV Staff", time: "18h ago", comments: 98, tags: ["Event"], image: stadium },
 ];
 
 // -- Rankings --
 export const ranking: RankedTeam[] = [
-  { rank: 1, name: "Natus Vincere", color: "#fbbf24", points: 1000, change: "same", region: "Europe" },
-  { rank: 2, name: "G2 Esports", color: "#c084fc", points: 892, change: "up", changeVal: 1, region: "Europe" },
-  { rank: 3, name: "Vitality", color: "#f87171", points: 845, change: "down", changeVal: 1, region: "Europe" },
-  { rank: 4, name: "MOUZ", color: "#2dd4bf", points: 756, change: "same", region: "Europe" },
-  { rank: 5, name: "FaZe Clan", color: "#60a5fa", points: 723, change: "up", changeVal: 2, region: "Europe" },
-  { rank: 6, name: "Team Spirit", color: "#34d399", points: 698, change: "down", changeVal: 1, region: "Europe" },
-  { rank: 7, name: "Team Liquid", color: "#38bdf8", points: 654, change: "up", changeVal: 1, region: "Americas" },
-  { rank: 8, name: "Heroic", color: "#f472b6", points: 612, change: "same", region: "Europe" },
-  { rank: 9, name: "FURIA", color: "#fbbf24", points: 589, change: "up", changeVal: 3, region: "Americas" },
-  { rank: 10, name: "Astralis", color: "#fb923c", points: 567, change: "down", changeVal: 2, region: "Europe" },
-  { rank: 11, name: "Cloud9", color: "#94a3b8", points: 534, change: "down", changeVal: 1, region: "Americas" },
-  { rank: 12, name: "Complexity", color: "#60a5fa", points: 501, change: "up", changeVal: 2, region: "Americas" },
-  { rank: 13, name: "Falcons", color: "#a78bfa", points: 478, change: "same", region: "Europe" },
-  { rank: 14, name: "paiN Gaming", color: "#4ade80", points: 445, change: "up", changeVal: 1, region: "Americas" },
-  { rank: 15, name: "Imperial", color: "#f59e0b", points: 412, change: "down", changeVal: 3, region: "Americas" },
-  { rank: 16, name: "9z Team", color: "#e879f9", points: 389, change: "same", region: "Americas" },
-  { rank: 17, name: "TheMongolz", color: "#f97316", points: 367, change: "up", changeVal: 4, region: "Asia" },
-  { rank: 18, name: "Virtus.pro", color: "#fb923c", points: 345, change: "down", changeVal: 1, region: "Europe" },
-  { rank: 19, name: "GamerLegion", color: "#a3e635", points: 323, change: "up", changeVal: 2, region: "Europe" },
-  { rank: 20, name: "SAW", color: "#67e8f9", points: 301, change: "same", region: "Europe" },
+  { rank: 1, name: "Natus Vincere", color: "#fbbf24", points: 1000, change: "same", region: "Europe", logo: logo.navi },
+  { rank: 2, name: "G2 Esports", color: "#c084fc", points: 892, change: "up", changeVal: 1, region: "Europe", logo: logo.g2 },
+  { rank: 3, name: "Vitality", color: "#f87171", points: 845, change: "down", changeVal: 1, region: "Europe", logo: logo.vitality },
+  { rank: 4, name: "MOUZ", color: "#2dd4bf", points: 756, change: "same", region: "Europe", logo: logo.mouz },
+  { rank: 5, name: "FaZe Clan", color: "#60a5fa", points: 723, change: "up", changeVal: 2, region: "Europe", logo: logo.faze },
+  { rank: 6, name: "Team Spirit", color: "#34d399", points: 698, change: "down", changeVal: 1, region: "Europe", logo: logo.spirit },
+  { rank: 7, name: "Team Liquid", color: "#38bdf8", points: 654, change: "up", changeVal: 1, region: "Americas", logo: logo.liquid },
+  { rank: 8, name: "Heroic", color: "#f472b6", points: 612, change: "same", region: "Europe", logo: logo.heroic },
+  { rank: 9, name: "FURIA", color: "#fbbf24", points: 589, change: "up", changeVal: 3, region: "Americas", logo: logo.furia },
+  { rank: 10, name: "Astralis", color: "#fb923c", points: 567, change: "down", changeVal: 2, region: "Europe", logo: logo.astralis },
+  { rank: 11, name: "Cloud9", color: "#94a3b8", points: 534, change: "down", changeVal: 1, region: "Americas", logo: logo.cloud9 },
+  { rank: 12, name: "Complexity", color: "#60a5fa", points: 501, change: "up", changeVal: 2, region: "Americas", logo: logo.complexity },
+  { rank: 13, name: "Falcons", color: "#a78bfa", points: 478, change: "same", region: "Europe", logo: logo.falcons },
+  { rank: 14, name: "paiN Gaming", color: "#4ade80", points: 445, change: "up", changeVal: 1, region: "Americas", logo: logo.pain },
+  { rank: 15, name: "Imperial", color: "#f59e0b", points: 412, change: "down", changeVal: 3, region: "Americas", logo: logo.imperial },
+  { rank: 16, name: "9z Team", color: "#e879f9", points: 389, change: "same", region: "Americas", logo: logo.nine_z },
+  { rank: 17, name: "TheMongolz", color: "#f97316", points: 367, change: "up", changeVal: 4, region: "Asia", logo: logo.mongolz },
+  { rank: 18, name: "Virtus.pro", color: "#fb923c", points: 345, change: "down", changeVal: 1, region: "Europe", logo: logo.virtuspro },
+  { rank: 19, name: "GamerLegion", color: "#a3e635", points: 323, change: "up", changeVal: 2, region: "Europe", logo: logo.gamerlegion },
+  { rank: 20, name: "SAW", color: "#67e8f9", points: 301, change: "same", region: "Europe", logo: logo.saw },
 ];
 
 // -- Events --
@@ -292,21 +248,21 @@ export const events: Event[] = [
 
 // -- Players --
 export const topPlayers: Player[] = [
-  { rank: 1, name: "donk", realName: "Danil Kryshkovets", team: "Spirit", country: "RU", rating: 1.36, kd: "1.42", adr: 94.2, kast: "78.5%", initial: "d", color: "#34d399", image: playerImg(1) },
-  { rank: 2, name: "ZywOo", realName: "Mathieu Herbaut", team: "Vitality", country: "FR", rating: 1.31, kd: "1.35", adr: 88.7, kast: "75.2%", initial: "Z", color: "#60a5fa", image: playerImg(2) },
-  { rank: 3, name: "NiKo", realName: "Nikola Kovač", team: "G2", country: "BA", rating: 1.27, kd: "1.30", adr: 85.4, kast: "73.8%", initial: "N", color: "#c084fc", image: playerImg(3) },
-  { rank: 4, name: "m0NESY", realName: "Ilya Osipov", team: "G2", country: "RU", rating: 1.25, kd: "1.28", adr: 82.1, kast: "72.4%", initial: "m", color: "#f87171", image: playerImg(4) },
-  { rank: 5, name: "ropz", realName: "Robin Kool", team: "FaZe", country: "EE", rating: 1.21, kd: "1.24", adr: 79.8, kast: "74.1%", initial: "r", color: "#fbbf24", image: playerImg(5) },
-  { rank: 6, name: "b1t", realName: "Valeriy Vakhovskiy", team: "NAVI", country: "UA", rating: 1.19, kd: "1.22", adr: 78.3, kast: "71.6%", initial: "b", color: "#fbbf24", image: playerImg(6) },
-  { rank: 7, name: "jL", realName: "Justin Wills", team: "NAVI", country: "LV", rating: 1.18, kd: "1.20", adr: 76.9, kast: "70.8%", initial: "j", color: "#fbbf24", image: playerImg(7) },
-  { rank: 8, name: "Spinx", realName: "Lotan Giladi", team: "Vitality", country: "IL", rating: 1.16, kd: "1.18", adr: 75.4, kast: "72.0%", initial: "S", color: "#f87171", image: playerImg(8) },
-  { rank: 9, name: "frozen", realName: "David Čerňanský", team: "MOUZ", country: "SK", rating: 1.15, kd: "1.17", adr: 74.1, kast: "69.5%", initial: "f", color: "#2dd4bf", image: playerImg(9) },
-  { rank: 10, name: "huNter-", realName: "Nemanja Kovač", team: "G2", country: "BA", rating: 1.14, kd: "1.16", adr: 73.8, kast: "71.2%", initial: "h", color: "#c084fc", image: playerImg(10) },
-  { rank: 11, name: "broky", realName: "Helvijs Saukants", team: "FaZe", country: "LV", rating: 1.13, kd: "1.15", adr: 72.5, kast: "68.9%", initial: "b", color: "#60a5fa", image: playerImg(11) },
-  { rank: 12, name: "rain", realName: "Håvard Nygaard", team: "FaZe", country: "NO", rating: 1.11, kd: "1.13", adr: 71.2, kast: "70.3%", initial: "r", color: "#60a5fa", image: playerImg(12) },
-  { rank: 13, name: "sh1ro", realName: "Dmitry Sokolov", team: "Spirit", country: "RU", rating: 1.10, kd: "1.12", adr: 70.8, kast: "67.5%", initial: "s", color: "#34d399", image: playerImg(13) },
-  { rank: 14, name: "yuurih", realName: "Yuri Santos", team: "FURIA", country: "BR", rating: 1.09, kd: "1.11", adr: 69.4, kast: "69.0%", initial: "y", color: "#fbbf24", image: playerImg(14) },
-  { rank: 15, name: "KSCERATO", realName: "Kaike Cerato", team: "FURIA", country: "BR", rating: 1.08, kd: "1.10", adr: 68.1, kast: "71.8%", initial: "K", color: "#fbbf24", image: playerImg(15) },
+  { rank: 1, name: "donk", realName: "Danil Kryshkovets", team: "Spirit", country: "RU", countryFlag: flag.RU, rating: 1.36, kd: "1.42", adr: 94.2, kast: "78.5%", image: playerPhoto.donk, teamLogo: logo.spirit },
+  { rank: 2, name: "ZywOo", realName: "Mathieu Herbaut", team: "Vitality", country: "FR", countryFlag: flag.FR, rating: 1.31, kd: "1.35", adr: 88.7, kast: "75.2%", image: playerPhoto.zywoo, teamLogo: logo.vitality },
+  { rank: 3, name: "NiKo", realName: "Nikola Kovač", team: "G2", country: "BA", countryFlag: flag.BA, rating: 1.27, kd: "1.30", adr: 85.4, kast: "73.8%", image: playerPhoto.niko, teamLogo: logo.g2 },
+  { rank: 4, name: "m0NESY", realName: "Ilya Osipov", team: "G2", country: "RU", countryFlag: flag.RU, rating: 1.25, kd: "1.28", adr: 82.1, kast: "72.4%", image: playerPhoto.m0nesy, teamLogo: logo.g2 },
+  { rank: 5, name: "ropz", realName: "Robin Kool", team: "FaZe", country: "EE", countryFlag: flag.EE, rating: 1.21, kd: "1.24", adr: 79.8, kast: "74.1%", image: playerPhoto.ropz, teamLogo: logo.faze },
+  { rank: 6, name: "b1t", realName: "Valeriy Vakhovskiy", team: "NAVI", country: "UA", countryFlag: flag.UA, rating: 1.19, kd: "1.22", adr: 78.3, kast: "71.6%", image: playerPhoto.donk, teamLogo: logo.navi },
+  { rank: 7, name: "jL", realName: "Justin Wills", team: "NAVI", country: "LV", countryFlag: flag.LV, rating: 1.18, kd: "1.20", adr: 76.9, kast: "70.8%", image: playerPhoto.donk, teamLogo: logo.navi },
+  { rank: 8, name: "Spinx", realName: "Lotan Giladi", team: "Vitality", country: "IL", countryFlag: flag.IL, rating: 1.16, kd: "1.18", adr: 75.4, kast: "72.0%", image: playerPhoto.zywoo, teamLogo: logo.vitality },
+  { rank: 9, name: "frozen", realName: "David Čerňanský", team: "MOUZ", country: "SK", countryFlag: flag.SK, rating: 1.15, kd: "1.17", adr: 74.1, kast: "69.5%", image: playerPhoto.niko, teamLogo: logo.mouz },
+  { rank: 10, name: "huNter-", realName: "Nemanja Kovač", team: "G2", country: "BA", countryFlag: flag.BA, rating: 1.14, kd: "1.16", adr: 73.8, kast: "71.2%", image: playerPhoto.niko, teamLogo: logo.g2 },
+  { rank: 11, name: "broky", realName: "Helvijs Saukants", team: "FaZe", country: "LV", countryFlag: flag.LV, rating: 1.13, kd: "1.15", adr: 72.5, kast: "68.9%", image: playerPhoto.ropz, teamLogo: logo.faze },
+  { rank: 12, name: "rain", realName: "Håvard Nygaard", team: "FaZe", country: "NO", countryFlag: flag.NO, rating: 1.11, kd: "1.13", adr: 71.2, kast: "70.3%", image: playerPhoto.ropz, teamLogo: logo.faze },
+  { rank: 13, name: "sh1ro", realName: "Dmitry Sokolov", team: "Spirit", country: "RU", countryFlag: flag.RU, rating: 1.10, kd: "1.12", adr: 70.8, kast: "67.5%", image: playerPhoto.donk, teamLogo: logo.spirit },
+  { rank: 14, name: "yuurih", realName: "Yuri Santos", team: "FURIA", country: "BR", countryFlag: flag.BR, rating: 1.09, kd: "1.11", adr: 69.4, kast: "69.0%", image: playerPhoto.m0nesy, teamLogo: logo.furia },
+  { rank: 15, name: "KSCERATO", realName: "Kaike Cerato", team: "FURIA", country: "BR", countryFlag: flag.BR, rating: 1.08, kd: "1.10", adr: 68.1, kast: "71.8%", image: playerPhoto.m0nesy, teamLogo: logo.furia },
 ];
 
 // -- Forum Threads --
