@@ -82,55 +82,58 @@ export interface ForumThread {
   pinned?: boolean;
 }
 
+// -- Base path for static assets (must match next.config.ts basePath) --
+const B = process.env.NODE_ENV === "production" ? "/repositorio-des-web" : "";
+
 // -- Team Logos (local, downloaded from Liquipedia) --
 const logo = {
-  navi: "/teams/navi.png",
-  vitality: "/teams/vitality.png",
-  faze: "/teams/faze.png",
-  g2: "/teams/g2.png",
-  spirit: "/teams/spirit.png",
-  liquid: "/teams/liquid.png",
-  mouz: "/teams/mouz.png",
-  heroic: "/teams/heroic.png",
-  furia: "/teams/furia.png",
-  astralis: "/teams/astralis.png",
-  cloud9: "/teams/cloud9.png",
-  complexity: "/teams/complexity.png",
-  pain: "/teams/pain.png",
-  falcons: "/teams/falcons.png",
-  imperial: "/teams/imperial.png",
-  nine_z: "/teams/9z.png",
-  mongolz: "/teams/mongolz.png",
-  virtuspro: "/teams/virtuspro.png",
-  gamerlegion: "/teams/gamerlegion.png",
-  saw: "/teams/saw.png",
+  navi: `${B}/teams/navi.png`,
+  vitality: `${B}/teams/vitality.png`,
+  faze: `${B}/teams/faze.png`,
+  g2: `${B}/teams/g2.png`,
+  spirit: `${B}/teams/spirit.png`,
+  liquid: `${B}/teams/liquid.png`,
+  mouz: `${B}/teams/mouz.png`,
+  heroic: `${B}/teams/heroic.png`,
+  furia: `${B}/teams/furia.png`,
+  astralis: `${B}/teams/astralis.png`,
+  cloud9: `${B}/teams/cloud9.png`,
+  complexity: `${B}/teams/complexity.png`,
+  pain: `${B}/teams/pain.png`,
+  falcons: `${B}/teams/falcons.png`,
+  imperial: `${B}/teams/imperial.png`,
+  nine_z: `${B}/teams/9z.png`,
+  mongolz: `${B}/teams/mongolz.png`,
+  virtuspro: `${B}/teams/virtuspro.png`,
+  gamerlegion: `${B}/teams/gamerlegion.png`,
+  saw: `${B}/teams/saw.png`,
 };
 
 // -- Player Photos (local, downloaded from Liquipedia) --
 const playerPhoto = {
-  donk: "/players/donk.jpg",
-  zywoo: "/players/zywoo.jpg",
-  niko: "/players/niko.jpg",
-  m0nesy: "/players/m0nesy.jpg",
-  ropz: "/players/ropz.jpg",
+  donk: `${B}/players/donk.jpg`,
+  zywoo: `${B}/players/zywoo.jpg`,
+  niko: `${B}/players/niko.jpg`,
+  m0nesy: `${B}/players/m0nesy.jpg`,
+  ropz: `${B}/players/ropz.jpg`,
 };
 
 // -- News/Event Images (local, downloaded from Unsplash) --
-const esportsArena = "/news/arena.jpg";
-const gamingSetup = "/news/setup.jpg";
-const crowdArena = "/news/crowd.jpg";
-const gamingKeyboard = "/news/keyboard.jpg";
-const esportStage = "/news/stage.jpg";
-const trophyCup = "/news/trophy.jpg";
-const gamingMonitor = "/news/monitor.jpg";
-const teamPhoto = "/news/team.jpg";
-const conferenceHall = "/news/conference.jpg";
-const gamingChair = "/news/chair.jpg";
-const neonLights = "/news/neon.jpg";
-const pcBuild = "/news/pc.jpg";
-const headphones = "/news/headphones.jpg";
-const stadium = "/news/stadium.jpg";
-const fireworks = "/news/fireworks.jpg";
+const esportsArena = `${B}/news/arena.jpg`;
+const gamingSetup = `${B}/news/setup.jpg`;
+const crowdArena = `${B}/news/crowd.jpg`;
+const gamingKeyboard = `${B}/news/keyboard.jpg`;
+const esportStage = `${B}/news/stage.jpg`;
+const trophyCup = `${B}/news/trophy.jpg`;
+const gamingMonitor = `${B}/news/monitor.jpg`;
+const teamPhoto = `${B}/news/team.jpg`;
+const conferenceHall = `${B}/news/conference.jpg`;
+const gamingChair = `${B}/news/chair.jpg`;
+const neonLights = `${B}/news/neon.jpg`;
+const pcBuild = `${B}/news/pc.jpg`;
+const headphones = `${B}/news/headphones.jpg`;
+const stadium = `${B}/news/stadium.jpg`;
+const fireworks = `${B}/news/fireworks.jpg`;
 
 // -- Country Flags (emoji) --
 const flag = {
