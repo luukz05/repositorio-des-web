@@ -15,7 +15,7 @@ export default function HeroMatch() {
       />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.08),transparent_70%)]" />
 
-      <div className="relative mx-auto max-w-[1200px] px-5 py-10 md:py-14">
+      <div className="relative mx-auto max-w-[1440px] px-6 py-10 md:py-14">
         {/* Badge */}
         <div className="mb-6 flex items-center gap-3 animate-fade-in-up">
           <span className="flex items-center gap-2 rounded-full bg-red/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-red animate-glow">

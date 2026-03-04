@@ -26,14 +26,13 @@ function BreakingNewsTicker() {
   const headlines = news.slice(0, 3);
   return (
     <div className="relative bg-bg-surface border-b border-border overflow-hidden">
-      <div className="mx-auto max-w-[1200px] flex items-center">
-        <div className="shrink-0 flex items-center gap-2 bg-red px-3 py-2 z-10">
+      <div className="flex items-center px-0">
+        <div className="shrink-0 flex items-center gap-2 bg-red px-4 py-2 z-10">
           <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse-dot" />
           <span className="text-[10px] font-black uppercase tracking-widest text-white">Breaking</span>
         </div>
         <div className="overflow-hidden flex-1">
           <div className="animate-marquee flex whitespace-nowrap py-2 pl-4">
-            {/* Duplicate for seamless loop */}
             {[...headlines, ...headlines].map((article, i) => (
               <a key={`${article.id}-${i}`} href="#" className="inline-flex items-center gap-3 mr-12 text-sm text-text-secondary hover:text-text-primary transition-colors">
                 <span className="h-1 w-1 rounded-full bg-red shrink-0" />
@@ -55,17 +54,17 @@ function LiveEventsBar() {
 
   return (
     <section className="border-b border-border bg-bg-surface/50">
-      <div className="mx-auto max-w-[1200px] px-5 py-4">
+      <div className="mx-auto max-w-[1440px] px-6 py-4">
         <div className="flex items-center gap-3 mb-3">
           <h2 className="text-xs font-bold uppercase tracking-wider text-text-muted">Events</h2>
           <div className="flex-1 h-px bg-border" />
         </div>
-        <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {allEvents.map((event) => (
             <a
               key={event.id}
               href="#"
-              className="shrink-0 flex items-center gap-3 rounded-lg border border-border bg-bg-card px-4 py-3 hover:border-border-hover hover:bg-bg-card-hover transition-all group min-w-[260px]"
+              className="flex items-center gap-3 rounded-lg border border-border bg-bg-card px-4 py-3 hover:border-border-hover hover:bg-bg-card-hover transition-all group"
             >
               <div className="flex flex-col min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-1">
@@ -84,7 +83,7 @@ function LiveEventsBar() {
                   </span>
                 </div>
                 <span className="text-sm font-semibold truncate">{event.name}</span>
-                <span className="text-[11px] text-text-muted">{event.status} &middot; {event.location}</span>
+                <span className="text-[11px] text-text-muted truncate">{event.status} &middot; {event.location}</span>
               </div>
               {event.progress > 0 && (
                 <div className="w-12 h-12 relative shrink-0">
@@ -178,7 +177,6 @@ function TopPlayerRatings() {
         <a href="#" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">Full stats</a>
       </div>
       <div className="rounded-xl border border-border bg-bg-card overflow-hidden card-glow">
-        {/* Header */}
         <div className="grid grid-cols-[40px_1fr_60px_50px_50px_50px] gap-2 px-4 py-2 border-b border-border text-[10px] font-bold uppercase tracking-wider text-text-muted">
           <span>#</span>
           <span>Player</span>
@@ -262,7 +260,7 @@ function PopularStreams() {
   );
 }
 
-/* ── Upcoming Events ── */
+/* ── Upcoming Events (full-width) ── */
 function UpcomingEvents() {
   const upcoming = events.filter(e => e.progress === 0).slice(0, 6);
   return (
@@ -310,47 +308,49 @@ function UpcomingEvents() {
   );
 }
 
-/* ── More News (bottom grid) ── */
+/* ── More News (full-width bottom grid) ── */
 function MoreNews() {
   const moreArticles = news.slice(7, 12);
   if (moreArticles.length === 0) return null;
   return (
-    <section className="mx-auto max-w-[1200px] px-5 py-8">
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-base font-bold">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2">
-            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
-            <path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/>
-          </svg>
-          More News
-        </h2>
-        <a href="#" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">View all news</a>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {moreArticles.map((article, i) => (
-          <article
-            key={`more-${article.id}`}
-            className={`group cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover card-glow animate-fade-in-up delay-${Math.min(i + 1, 5)}`}
-          >
-            <div className="h-32 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={article.image} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            </div>
-            <div className="p-3">
-              <div className="flex gap-2 mb-1.5">
-                {article.tags.map((tag) => (
-                  <span key={tag} className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-blue/15 text-blue-light">{tag}</span>
-                ))}
+    <section className="border-t border-border bg-bg-surface/30">
+      <div className="mx-auto max-w-[1440px] px-6 py-10">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-base font-bold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2">
+              <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
+              <path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/>
+            </svg>
+            More News
+          </h2>
+          <a href="#" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">View all news</a>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {moreArticles.map((article, i) => (
+            <article
+              key={`more-${article.id}`}
+              className={`group cursor-pointer overflow-hidden rounded-xl border border-border bg-bg-card transition-all hover:border-border-hover hover:bg-bg-card-hover card-glow animate-fade-in-up delay-${Math.min(i + 1, 5)}`}
+            >
+              <div className="h-32 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={article.image} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
-              <h4 className="text-[13px] font-semibold leading-tight line-clamp-2 mb-1.5">{article.title}</h4>
-              <div className="flex items-center gap-2 text-[11px] text-text-muted">
-                <span>{article.time}</span>
-                <span>&middot;</span>
-                <span>{article.comments} comments</span>
+              <div className="p-3">
+                <div className="flex gap-2 mb-1.5">
+                  {article.tags.map((tag) => (
+                    <span key={tag} className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-blue/15 text-blue-light">{tag}</span>
+                  ))}
+                </div>
+                <h4 className="text-[13px] font-semibold leading-tight line-clamp-2 mb-1.5">{article.title}</h4>
+                <div className="flex items-center gap-2 text-[11px] text-text-muted">
+                  <span>{article.time}</span>
+                  <span>&middot;</span>
+                  <span>{article.comments} comments</span>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -362,23 +362,23 @@ export default function Home() {
     <>
       <Header />
 
-      {/* Breaking News Ticker */}
+      {/* Breaking News Ticker — full bleed */}
       <BreakingNewsTicker />
 
       {/* Leaderboard Ad */}
-      <div className="mx-auto max-w-[1200px] px-5 pt-6">
+      <div className="mx-auto max-w-[1440px] px-6 pt-6">
         <AdBanner height="90px" label="728 × 90 — Leaderboard" />
       </div>
 
-      {/* Hero Match */}
+      {/* Hero Match — full bleed bg */}
       <HeroMatch />
 
-      {/* Live Events Bar */}
+      {/* Live Events Bar — full bleed bg */}
       <LiveEventsBar />
 
       {/* Two-column grid */}
-      <main className="mx-auto max-w-[1200px] px-5 py-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+      <main className="mx-auto max-w-[1440px] px-6 py-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
           {/* Left column */}
           <div className="space-y-8">
             <NewsSection />
@@ -411,12 +411,14 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Bottom leaderboard ad */}
-      <div className="mx-auto max-w-[1200px] px-5 pb-4">
-        <AdBanner height="90px" label="728 × 90 — Bottom Leaderboard" />
+      {/* Bottom leaderboard ad — full bleed bg */}
+      <div className="border-t border-b border-border bg-bg-surface/20">
+        <div className="mx-auto max-w-[1440px] px-6 py-6">
+          <AdBanner height="90px" label="728 × 90 — Bottom Leaderboard" />
+        </div>
       </div>
 
-      {/* More News */}
+      {/* More News — full bleed bg */}
       <MoreNews />
 
       <Footer />
