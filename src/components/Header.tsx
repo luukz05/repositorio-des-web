@@ -14,23 +14,20 @@ const navLinks = [
   { label: "Rankings", href: "/rankings" },
 ];
 
-const base = process.env.NODE_ENV === "production" ? "/repositorio-des-web" : "";
-
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string) => {
-    const clean = pathname.replace("/repositorio-des-web", "");
-    if (href === "/" && (clean === "/" || clean === "")) return true;
-    return href !== "/" && clean.startsWith(href);
+    if (href === "/" && pathname === "/") return true;
+    return href !== "/" && pathname.startsWith(href);
   };
 
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-border bg-bg-surface">
         <div className="mx-auto flex max-w-[1200px] items-center gap-6 px-5 h-14">
-          <Link href={`${base}/`} className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <path d="M6 8h5v16H6zM13 14h5v10h-5zM20 10h5v14h-5z" fill="#2563eb"/>
             </svg>
@@ -41,7 +38,7 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={`${base}${link.href}`}
+                href={link.href}
                 className={`relative px-3 py-4 text-sm font-medium transition-colors ${
                   isActive(link.href) ? "text-blue-light" : "text-text-secondary hover:text-text-primary"
                 }`}
@@ -78,7 +75,7 @@ export default function Header() {
             </button>
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <Link key={link.href} href={`${base}${link.href}`} onClick={() => setMobileOpen(false)}
+                <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
                   className={`rounded-lg px-3 py-2.5 text-sm font-medium ${isActive(link.href) ? "text-blue-light bg-blue-glow" : "text-text-secondary hover:text-text-primary"}`}
                 >{link.label}</Link>
               ))}
