@@ -9,20 +9,23 @@ export default function HeroMatch() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Katowice arena background */}
+      {/* Katowice arena background — high-res, focused on top center */}
       <img
         src={`${B}/news/katowice-bg.jpg`}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-top scale-105"
       />
-      {/* Dark overlay + team gradient */}
+      {/* Heavy dark overlay so text stays readable */}
+      <div className="absolute inset-0 bg-bg-body/70" />
+      {/* Team color side accents */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(90deg, ${match.team1.color}25 0%, rgba(12,25,41,0.88) 30%, rgba(17,29,46,0.92) 50%, rgba(12,25,41,0.88) 70%, ${match.team2.color}25 100%)`,
+          background: `linear-gradient(90deg, ${match.team1.color}20 0%, transparent 25%, transparent 75%, ${match.team2.color}20 100%)`,
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.08),transparent_70%)]" />
+      {/* Subtle blue radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.1),transparent_60%)]" />
 
       <div className="relative mx-auto max-w-[1440px] px-6 py-10 md:py-14">
         {/* Badge */}
