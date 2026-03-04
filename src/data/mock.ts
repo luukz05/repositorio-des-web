@@ -294,7 +294,11 @@ export const forumThreads: ForumThread[] = [
 // -- Streams --
 export const streams: Stream[] = [
   { id: 1, channel: "ESL_CSGO", title: "IEM Katowice 2026 - Semifinals", viewers: 124500, game: "Counter-Strike 2", language: "EN", thumbnail: esportsArena },
-  { id: 2, channel: "BLAST_TV", title: "BLAST Premier Spring Groups", viewers: 82300, game: "Counter-Strike 2", language: "EN", thumbnail: crowdArena },
-  { id: 3, channel: "gaules", title: "Watchparty IEM Katowice", viewers: 51200, game: "Counter-Strike 2", language: "PT", thumbnail: esportStage },
-  { id: 4, channel: "s1mple", title: "Ranked Grind - Road to Global", viewers: 38700, game: "Counter-Strike 2", language: "RU", thumbnail: gamingSetup },
+  { id: 2, channel: "gaules", title: "WATCHPARTY IEM Katowice - VAMO FURIA!", viewers: 51200, game: "Counter-Strike 2", language: "PT", thumbnail: crowdArena },
+  { id: 3, channel: "MaDHousE_TV", title: "Analisando as semis do IEM Katowice", viewers: 14800, game: "Counter-Strike 2", language: "PT", thumbnail: esportStage },
+  { id: 4, channel: "fl0m", title: "Rank S Grind & IEM Watch Along", viewers: 12300, game: "Counter-Strike 2", language: "EN", thumbnail: gamingSetup },
+  { id: 5, channel: "BLAST_TV", title: "BLAST Premier Spring Groups", viewers: 82300, game: "Counter-Strike 2", language: "EN", thumbnail: stadium },
+  { id: 6, channel: "s1mple", title: "Ranked Grind - Road to Global", viewers: 38700, game: "Counter-Strike 2", language: "RU", thumbnail: gamingKeyboard },
+  { id: 7, channel: "Pimp", title: "IEM Katowice Co-stream w/ analysis", viewers: 8400, game: "Counter-Strike 2", language: "EN", thumbnail: gamingMonitor },
+  { id: 8, channel: "mch_agg", title: "FPL ao vivo - grind noturno", viewers: 6200, game: "Counter-Strike 2", language: "PT", thumbnail: neonLights },
 ];

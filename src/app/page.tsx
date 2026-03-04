@@ -214,6 +214,40 @@ function TopPlayerRatings() {
 
 /* ── Popular Streams ── */
 function PopularStreams() {
+  const featured = streams.slice(0, 2);
+  const rest = streams.slice(2);
+
+  function StreamCard({ stream, featured: isFeatured, idx }: { stream: typeof streams[0]; featured?: boolean; idx: number }) {
+    return (
+      <a
+        href="#"
+        className={`group rounded-xl border border-border bg-bg-card overflow-hidden hover:border-border-hover transition-all card-glow animate-fade-in-up delay-${Math.min(idx + 1, 5)}`}
+      >
+        <div className={`relative overflow-hidden ${isFeatured ? "h-44" : "h-28"}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={stream.thumbnail} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
+          <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-red px-2 py-0.5 rounded text-[10px] font-bold text-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse-dot" />
+            LIVE
+          </div>
+          <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-[10px] font-bold text-white">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/><circle cx="12" cy="12" r="3.5" fill="white"/></svg>
+            {stream.viewers >= 1000 ? `${(stream.viewers / 1000).toFixed(1)}K` : stream.viewers}
+          </div>
+        </div>
+        <div className="p-3">
+          <p className={`font-semibold truncate ${isFeatured ? "text-sm" : "text-xs"}`}>{stream.title}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-[11px] font-medium text-purple-400">{stream.channel}</span>
+            <span className="text-[10px] text-text-muted">&middot;</span>
+            <span className="text-[10px] text-text-muted">{stream.language}</span>
+          </div>
+        </div>
+      </a>
+    );
+  }
+
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
@@ -225,35 +259,16 @@ function PopularStreams() {
         </h2>
         <a href="#" className="text-sm font-medium text-blue-light hover:text-blue transition-colors">All streams</a>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {streams.map((stream, i) => (
-          <a
-            key={stream.id}
-            href="#"
-            className={`group rounded-xl border border-border bg-bg-card overflow-hidden hover:border-border-hover transition-all card-glow animate-fade-in-up delay-${i + 1}`}
-          >
-            <div className="relative h-36 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={stream.thumbnail} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent" />
-              <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-red px-2 py-0.5 rounded text-[10px] font-bold text-white">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse-dot" />
-                LIVE
-              </div>
-              <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-[10px] font-bold text-white">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/><circle cx="12" cy="12" r="3.5" fill="white"/></svg>
-                {stream.viewers >= 1000 ? `${(stream.viewers / 1000).toFixed(1)}K` : stream.viewers}
-              </div>
-            </div>
-            <div className="p-3">
-              <p className="text-sm font-semibold truncate">{stream.title}</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-[11px] font-medium text-purple-400">{stream.channel}</span>
-                <span className="text-[10px] text-text-muted">&middot;</span>
-                <span className="text-[10px] text-text-muted">{stream.language}</span>
-              </div>
-            </div>
-          </a>
+      {/* Featured 2 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {featured.map((s, i) => (
+          <StreamCard key={s.id} stream={s} featured idx={i} />
+        ))}
+      </div>
+      {/* Rest — smaller cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {rest.map((s, i) => (
+          <StreamCard key={s.id} stream={s} idx={i + 2} />
         ))}
       </div>
     </section>
