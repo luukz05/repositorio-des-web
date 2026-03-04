@@ -1,9 +1,7 @@
 import Header from "@/components/Header";
 import HeroMatch from "@/components/HeroMatch";
-import MatchesSidebar from "@/components/MatchesSidebar";
 import NewsSection from "@/components/NewsSection";
-import ResultsSection from "@/components/ResultsSection";
-import RankingSidebar from "@/components/RankingSidebar";
+import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -12,22 +10,16 @@ export default function Home() {
       <Header />
       <HeroMatch />
 
-      <main className="mx-auto max-w-[1400px] px-6 py-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[300px_1fr_320px]">
-          {/* Left sidebar - matches */}
-          <div className="order-2 lg:order-1">
-            <MatchesSidebar />
-          </div>
-
-          {/* Center - news & results */}
-          <div className="order-1 lg:order-2">
+      <main className="mx-auto max-w-[1200px] px-5 py-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+          {/* Main content */}
+          <div>
             <NewsSection />
-            <ResultsSection />
           </div>
 
-          {/* Right sidebar - rankings, events, players */}
-          <div className="order-3">
-            <RankingSidebar />
+          {/* Right sidebar */}
+          <div>
+            <Sidebar />
           </div>
         </div>
       </main>
