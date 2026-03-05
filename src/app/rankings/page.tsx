@@ -4,7 +4,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TeamLogo from "@/components/TeamLogo";
-import { ranking } from "@/data/mock";
+import Link from "next/link";
+import { ranking, teamProfiles } from "@/data/mock";
 
 export default function RankingsPage() {
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -74,10 +75,10 @@ export default function RankingsPage() {
             </div>
             <p className="text-3xl font-bold rank-gold mb-1 tabular-nums">{top3[0].points} pts</p>
             <p className="text-xs text-text-muted mb-4">Rank steady</p>
-            <button className="flex items-center gap-1.5 rounded-lg bg-blue px-4 py-2 text-sm font-semibold text-white hover:bg-blue-light transition-all hover:-translate-y-0.5 active:scale-95">
+            <Link href={`/teams/${teamProfiles.find(tp => tp.name === top3[0].name)?.id || "navi"}`} className="flex items-center gap-1.5 rounded-lg bg-blue px-4 py-2 text-sm font-semibold text-white hover:bg-blue-light transition-all hover:-translate-y-0.5 active:scale-95">
               View Team
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+            </Link>
           </div>
 
           {/* #3 */}
@@ -121,37 +122,50 @@ export default function RankingsPage() {
                 </div>
               </div>
 
-              {expanded === team.rank && (
-                <div className="mx-2 rounded-b-xl border border-t-0 border-blue/20 bg-bg-card p-5 animate-scale-in">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3">Core Roster</h4>
-                      <div className="flex gap-4">
-                        {["Player 1", "Player 2", "Player 3", "Player 4", "Player 5"].map((p, idx) => (
-                          <div key={idx} className="flex flex-col items-center gap-1.5">
-                            <div className="h-10 w-10 rounded-full bg-bg-surface flex items-center justify-center text-xs text-text-muted border border-border">P{idx+1}</div>
-                            <span className="text-[11px] text-text-secondary">player{idx + 1}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3">Recent Results</h4>
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between rounded-lg bg-bg-surface px-3 py-2 text-sm">
-                          <span className="text-text-secondary">vs Liquid</span>
-                          <span className="font-bold text-green">2:0</span>
-                        </div>
-                        <div className="flex items-center justify-between rounded-lg bg-bg-surface px-3 py-2 text-sm">
-                          <span className="text-text-secondary">vs Virtus.pro</span>
-                          <span className="font-bold text-green">2:1</span>
+              {expanded === team.rank && (() => {
+                const tp = teamProfiles.find(t2 => t2.name === team.name);
+                return (
+                  <div className="mx-2 rounded-b-xl border border-t-0 border-blue/20 bg-bg-card p-5 animate-scale-in">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3">Core Roster</h4>
+                        <div className="flex gap-4">
+                          {tp ? tp.roster.slice(0, 5).map((p, idx) => (
+                            <div key={idx} className="flex flex-col items-center gap-1.5">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img src={p.image} alt={p.nickname} className="h-10 w-10 rounded-full object-cover object-top border border-border" />
+                              <span className="text-[11px] text-text-secondary">{p.nickname}</span>
+                            </div>
+                          )) : [1,2,3,4,5].map((idx) => (
+                            <div key={idx} className="flex flex-col items-center gap-1.5">
+                              <div className="h-10 w-10 rounded-full bg-bg-surface flex items-center justify-center text-xs text-text-muted border border-border">P{idx}</div>
+                              <span className="text-[11px] text-text-secondary">player{idx}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                      <a href="#" className="block mt-3 text-center text-xs font-medium text-blue-light hover:text-blue transition-colors">Go to Team Page</a>
+                      <div>
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3">Recent Results</h4>
+                        <div className="space-y-1.5">
+                          {tp ? tp.recentMatches.slice(0, 3).map((m, idx) => (
+                            <div key={idx} className="flex items-center justify-between rounded-lg bg-bg-surface px-3 py-2 text-sm">
+                              <span className="text-text-secondary">vs {m.opponent}</span>
+                              <span className={`font-bold ${m.result === "W" ? "text-green" : "text-red"}`}>{m.score}</span>
+                            </div>
+                          )) : (
+                            <>
+                              <div className="flex items-center justify-between rounded-lg bg-bg-surface px-3 py-2 text-sm">
+                                <span className="text-text-secondary">No data</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                        {tp && <Link href={`/teams/${tp.id}`} className="block mt-3 text-center text-xs font-medium text-blue-light hover:text-blue transition-colors">Go to Team Page</Link>}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           ))}
         </div>

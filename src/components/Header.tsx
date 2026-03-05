@@ -15,6 +15,7 @@ const navLinks = [
   { label: "Rankings", href: "/rankings" },
   { label: "Forums", href: "/forums" },
   { label: "Academy", href: "/academy" },
+  { label: "Games", href: "/games" },
 ];
 
 export default function Header() {
@@ -47,6 +48,7 @@ export default function Header() {
                 }`}
               >
                 {link.label}
+                {link.label === "Games" && <span className="ml-1 text-[8px] font-black uppercase bg-red text-white px-1 py-0.5 rounded-full leading-none">NEW</span>}
                 {isActive(link.href) && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-full bg-blue-light rounded-full" />
                 )}

@@ -859,7 +859,504 @@ export interface PlayerProfile {
   recentMatches: { event: string; opponent: string; opponentLogo: string; result: string; rating: number; kills: number; deaths: number; map: string }[];
   teamHistory: { team: string; logo: string; period: string }[];
   achievements: string[];
+  // Extended fields
+  bio: string;
+  teamSlug: string;
+  region: string;
+  majorWins: number;
+  signatureWeapon: string;
+  careerEarnings: string;
+  peakRating: number;
+  peakRatingDate: string;
+  form: { month: string; rating: number }[];
+  eventHistory: { event: string; tier: string; rating: number; maps: number; placement: string; date: string }[];
 }
+
+// -- Team Rosters (for Guess the Lineup game & Team pages) --
+export interface TeamRoster {
+  teamName: string;
+  teamLogo: string;
+  teamAbbr: string;
+  players: string[];
+}
+
+export const teamRosters: TeamRoster[] = [
+  { teamName: "Team Spirit", teamLogo: logo.spirit, teamAbbr: "Spirit", players: ["donk", "sh1ro", "chopper", "magixx", "zont1x"] },
+  { teamName: "Vitality", teamLogo: logo.vitality, teamAbbr: "VIT", players: ["ZywOo", "Spinx", "flameZ", "apEX", "mezii"] },
+  { teamName: "G2 Esports", teamLogo: logo.g2, teamAbbr: "G2", players: ["NiKo", "m0NESY", "huNter-", "nexa", "HooXi"] },
+  { teamName: "FaZe Clan", teamLogo: logo.faze, teamAbbr: "FaZe", players: ["ropz", "broky", "rain", "frozen", "karrigan"] },
+  { teamName: "Natus Vincere", teamLogo: logo.navi, teamAbbr: "NAVI", players: ["b1t", "jL", "Aleksib", "iM", "w0nderful"] },
+  { teamName: "MOUZ", teamLogo: logo.mouz, teamAbbr: "MOUZ", players: ["frozen", "torzsi", "Brollan", "xertioN", "siuhy"] },
+  { teamName: "FURIA", teamLogo: logo.furia, teamAbbr: "FURIA", players: ["yuurih", "KSCERATO", "FalleN", "chelo", "skullz"] },
+  { teamName: "Team Liquid", teamLogo: logo.liquid, teamAbbr: "TL", players: ["NAF", "EliGE", "Twistzz", "oSee", "cadiaN"] },
+  { teamName: "Heroic", teamLogo: logo.heroic, teamAbbr: "Heroic", players: ["TeSeS", "sjuush", "stavn", "jabbi", "kyxsan"] },
+  { teamName: "Astralis", teamLogo: logo.astralis, teamAbbr: "Astralis", players: ["device", "blameF", "Buzz", "br0", "Staehr"] },
+];
+
+// -- Map Callout Quiz Data (for Map Guesser game) --
+export interface MapCalloutQuiz {
+  callout: string;
+  description: string;
+  correctMap: string;
+  difficulty: "easy" | "medium" | "hard";
+}
+
+export const mapCalloutQuizzes: MapCalloutQuiz[] = [
+  { callout: "Tetris", description: "A boxy structure near A site used for cover during retakes", correctMap: "mirage", difficulty: "easy" },
+  { callout: "Banana", description: "A curved, narrow path leading to the B bombsite", correctMap: "inferno", difficulty: "easy" },
+  { callout: "Xbox", description: "A cross-shaped shadow area in the middle of the map, near mid doors", correctMap: "dust2", difficulty: "easy" },
+  { callout: "Palace", description: "A decorated indoor area leading to the A bombsite with ornate walls", correctMap: "mirage", difficulty: "easy" },
+  { callout: "Pit", description: "A sunken area below A site often held by an AWPer, in an Italian village", correctMap: "inferno", difficulty: "easy" },
+  { callout: "Jungle", description: "A vegetated area near A site connecting to the connector area", correctMap: "mirage", difficulty: "medium" },
+  { callout: "Squeaky", description: "A distinctive door that makes noise when opened, leading to A site in a nuclear facility", correctMap: "nuke", difficulty: "medium" },
+  { callout: "Donut", description: "A circular connection area near A site in ancient Aztec ruins", correctMap: "ancient", difficulty: "medium" },
+  { callout: "Canal", description: "A water-filled passage on an Egyptian-themed map, used for rotations", correctMap: "anubis", difficulty: "medium" },
+  { callout: "Scaffolding", description: "Metal construction platforms high up on a skyscraper map", correctMap: "vertigo", difficulty: "medium" },
+  { callout: "Heaven", description: "An elevated position overlooking the B site inside a nuclear power plant", correctMap: "nuke", difficulty: "medium" },
+  { callout: "Vineyards", description: "An open area with grape vines on an Italian town map, newly added to the pool", correctMap: "tuscan", difficulty: "hard" },
+  { callout: "Goose", description: "A small corner on A site with a graffiti of a goose on the wall, on the most iconic map", correctMap: "dust2", difficulty: "medium" },
+  { callout: "Coffins", description: "Stone burial boxes used as cover on the B bombsite, Italian village map", correctMap: "inferno", difficulty: "easy" },
+  { callout: "Ticket", description: "A booth area near A site with a small enclosed space for cover", correctMap: "mirage", difficulty: "medium" },
+  { callout: "Window", description: "A room overlooking mid from the CT side on a Moroccan-themed map", correctMap: "mirage", difficulty: "easy" },
+  { callout: "Decon", description: "A decontamination chamber used for rotations between sites", correctMap: "nuke", difficulty: "hard" },
+  { callout: "Jaguar", description: "A statue-like position near one of the bombsites in ancient ruins", correctMap: "ancient", difficulty: "hard" },
+  { callout: "Church", description: "A religious building that provides cover near one of the bombsites in an Italian town", correctMap: "tuscan", difficulty: "hard" },
+  { callout: "Silo", description: "A tall cylindrical structure outside a nuclear power plant used for boosting", correctMap: "nuke", difficulty: "medium" },
+  { callout: "Underpass", description: "A tunnel beneath the mid area connecting T side to B short", correctMap: "mirage", difficulty: "easy" },
+  { callout: "Secret", description: "A hidden passage inside a nuclear facility used for sneaky B takes", correctMap: "nuke", difficulty: "hard" },
+  { callout: "Ruins", description: "Crumbling stone structures near B site on an Egyptian-themed map", correctMap: "anubis", difficulty: "medium" },
+  { callout: "Graveyard", description: "An area with tombstones near A site in an Italian village", correctMap: "inferno", difficulty: "easy" },
+  { callout: "Elbow", description: "A sharp turn in the path connecting mid to A site in Aztec ruins", correctMap: "ancient", difficulty: "medium" },
+  { callout: "Catwalk", description: "An elevated walkway connecting A short to A site on the most famous map", correctMap: "dust2", difficulty: "easy" },
+  { callout: "Boat", description: "A watercraft near one of the connection areas on an Egyptian map", correctMap: "anubis", difficulty: "hard" },
+  { callout: "Fountain", description: "A decorative water feature in the center of an Italian town map", correctMap: "tuscan", difficulty: "medium" },
+  { callout: "Generator", description: "Industrial equipment providing cover on a bombsite atop a skyscraper", correctMap: "vertigo", difficulty: "hard" },
+  { callout: "Library", description: "A room with bookshelves near A site in an Italian village map", correctMap: "inferno", difficulty: "medium" },
+  { callout: "Trophy", description: "A room inside a nuclear facility with display cases", correctMap: "nuke", difficulty: "hard" },
+  { callout: "Olive", description: "Trees near one of the sites on a newly competitive Italian map", correctMap: "tuscan", difficulty: "hard" },
+  { callout: "Red Room", description: "A distinctly colored room used for rotations in ancient ruins", correctMap: "ancient", difficulty: "hard" },
+  { callout: "Van", description: "A vehicle providing cover on B site, Moroccan-themed map", correctMap: "mirage", difficulty: "easy" },
+  { callout: "Bridge", description: "A crossing structure over a water canal on an Egyptian map", correctMap: "anubis", difficulty: "easy" },
+];
+
+// -- Team Profiles (for /teams/[id] pages) --
+export interface TeamProfile {
+  id: string;
+  name: string;
+  abbr: string;
+  color: string;
+  logo: string;
+  region: string;
+  country: string;
+  countryFlag: string;
+  founded: string;
+  coach: { nickname: string; realName: string; country: string; countryFlag: string };
+  worldRanking: number;
+  rankingPoints: number;
+  peakRanking: number;
+  peakRankingDate: string;
+  weeksInTop5: number;
+  weeksInTop10: number;
+  roster: { playerId: number; nickname: string; realName: string; country: string; countryFlag: string; image: string; role: string; joinDate: string; rating: number; isCaptain?: boolean }[];
+  mapStats: { map: string; played: number; wins: number; winRate: number; ctWinRate: number; tWinRate: number }[];
+  recentMatches: { opponent: string; opponentLogo: string; score: string; result: "W" | "L"; event: string; date: string; format: string }[];
+  achievements: { event: string; placement: string; tier: "S" | "A" | "B"; date: string; prize?: string }[];
+  transfers: { player: string; direction: "in" | "out"; fromTeam?: string; toTeam?: string; date: string }[];
+  headToHead: { opponent: string; opponentLogo: string; wins: number; losses: number }[];
+  totalMapsPlayed: number;
+  overallWinRate: number;
+  last10Results: ("W" | "L")[];
+  majorsWon: number;
+  totalPrizeEarnings: string;
+}
+
+export const teamProfiles: TeamProfile[] = [
+  {
+    id: "navi", name: "Natus Vincere", abbr: "NAVI", color: "#fbbf24", logo: logo.navi,
+    region: "Europe", country: "UA", countryFlag: flag.UA, founded: "2009",
+    coach: { nickname: "B1ad3", realName: "Andrii Horodenskyi", country: "UA", countryFlag: flag.UA },
+    worldRanking: 1, rankingPoints: 1000, peakRanking: 1, peakRankingDate: "Oct 2021",
+    weeksInTop5: 245, weeksInTop10: 380,
+    roster: [
+      { playerId: 6, nickname: "b1t", realName: "Valeriy Vakhovskiy", country: "UA", countryFlag: flag.UA, image: playerPhoto.donk, role: "Rifler", joinDate: "Feb 2021", rating: 1.19 },
+      { playerId: 7, nickname: "jL", realName: "Justin Wills", country: "LV", countryFlag: flag.LV, image: playerPhoto.donk, role: "Entry Fragger", joinDate: "Jan 2024", rating: 1.18 },
+      { playerId: 0, nickname: "Aleksib", realName: "Aleksi Virolainen", country: "FI", countryFlag: "🇫🇮", image: playerPhoto.ropz, role: "IGL", joinDate: "Sep 2023", rating: 0.98, isCaptain: true },
+      { playerId: 0, nickname: "iM", realName: "Kirill Mykhailov", country: "UA", countryFlag: flag.UA, image: playerPhoto.m0nesy, role: "Rifler", joinDate: "Jan 2024", rating: 1.12 },
+      { playerId: 0, nickname: "w0nderful", realName: "Andrii Counter", country: "UA", countryFlag: flag.UA, image: playerPhoto.zywoo, role: "AWPer", joinDate: "Sep 2023", rating: 1.14 },
+    ],
+    mapStats: [
+      { map: "Mirage", played: 89, wins: 66, winRate: 74.2, ctWinRate: 55.8, tWinRate: 44.2 },
+      { map: "Inferno", played: 82, wins: 59, winRate: 72.0, ctWinRate: 56.3, tWinRate: 43.7 },
+      { map: "Nuke", played: 65, wins: 48, winRate: 73.8, ctWinRate: 60.2, tWinRate: 39.8 },
+      { map: "Anubis", played: 54, wins: 36, winRate: 66.7, ctWinRate: 54.1, tWinRate: 45.9 },
+      { map: "Dust II", played: 48, wins: 32, winRate: 66.7, ctWinRate: 52.0, tWinRate: 48.0 },
+      { map: "Ancient", played: 41, wins: 27, winRate: 65.9, ctWinRate: 57.5, tWinRate: 42.5 },
+    ],
+    recentMatches: [
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, score: "13-11", result: "W", event: "IEM Katowice 2026", date: "Mar 5", format: "BO3" },
+      { opponent: "Team Liquid", opponentLogo: logo.liquid, score: "2-1", result: "W", event: "IEM Katowice 2026", date: "Mar 4", format: "BO3" },
+      { opponent: "Vitality", opponentLogo: logo.vitality, score: "1-2", result: "L", event: "BLAST Premier", date: "Mar 1", format: "BO3" },
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, score: "2-0", result: "W", event: "IEM Katowice 2026", date: "Feb 28", format: "BO3" },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, score: "16-12", result: "W", event: "BLAST Premier", date: "Feb 25", format: "BO1" },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, score: "2-1", result: "W", event: "BLAST Premier", date: "Feb 22", format: "BO3" },
+      { opponent: "Astralis", opponentLogo: logo.astralis, score: "16-9", result: "W", event: "ESL Pro League", date: "Feb 19", format: "BO1" },
+      { opponent: "Heroic", opponentLogo: logo.heroic, score: "0-2", result: "L", event: "ESL Pro League", date: "Feb 16", format: "BO3" },
+    ],
+    achievements: [
+      { event: "IEM Katowice 2026", placement: "1st", tier: "S", date: "Mar 2026", prize: "$400,000" },
+      { event: "PGL Major Copenhagen 2024", placement: "2nd", tier: "S", date: "May 2024" },
+      { event: "PGL Major Stockholm 2021", placement: "1st", tier: "S", date: "Nov 2021", prize: "$500,000" },
+      { event: "Intel Grand Slam S1", placement: "1st", tier: "S", date: "2021", prize: "$1,000,000" },
+      { event: "IEM Cologne 2021", placement: "1st", tier: "S", date: "Jul 2021", prize: "$400,000" },
+      { event: "BLAST Premier World Final 2021", placement: "1st", tier: "S", date: "Dec 2021", prize: "$500,000" },
+    ],
+    transfers: [
+      { player: "jL", direction: "in", fromTeam: "Complexity", date: "Jan 2024" },
+      { player: "iM", direction: "in", fromTeam: "Monte", date: "Jan 2024" },
+      { player: "w0nderful", direction: "in", fromTeam: "Monte", date: "Sep 2023" },
+      { player: "Aleksib", direction: "in", fromTeam: "G2", date: "Sep 2023" },
+      { player: "s1mple", direction: "out", toTeam: "Inactive", date: "Sep 2023" },
+      { player: "electroNic", direction: "out", toTeam: "Virtus.pro", date: "Jan 2024" },
+    ],
+    headToHead: [
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 18, losses: 14 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 15, losses: 16 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 20, losses: 12 },
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, wins: 12, losses: 8 },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, wins: 9, losses: 5 },
+    ],
+    totalMapsPlayed: 432, overallWinRate: 68.5, last10Results: ["W","W","L","W","W","W","W","L","W","W"],
+    majorsWon: 2, totalPrizeEarnings: "$18,450,000",
+  },
+  {
+    id: "g2", name: "G2 Esports", abbr: "G2", color: "#c084fc", logo: logo.g2,
+    region: "Europe", country: "DE", countryFlag: "🇩🇪", founded: "2013",
+    coach: { nickname: "TBD", realName: "Staff", country: "DE", countryFlag: "🇩🇪" },
+    worldRanking: 2, rankingPoints: 892, peakRanking: 1, peakRankingDate: "Sep 2023",
+    weeksInTop5: 120, weeksInTop10: 210,
+    roster: [
+      { playerId: 3, nickname: "NiKo", realName: "Nikola Kovac", country: "BA", countryFlag: flag.BA, image: playerPhoto.niko, role: "Rifler", joinDate: "Jan 2021", rating: 1.27 },
+      { playerId: 4, nickname: "m0NESY", realName: "Ilya Osipov", country: "RU", countryFlag: flag.RU, image: playerPhoto.m0nesy, role: "AWPer", joinDate: "Jan 2022", rating: 1.25 },
+      { playerId: 10, nickname: "huNter-", realName: "Nemanja Kovac", country: "BA", countryFlag: flag.BA, image: playerPhoto.niko, role: "Rifler", joinDate: "Jan 2021", rating: 1.14 },
+      { playerId: 0, nickname: "nexa", realName: "Nemanja Isakovic", country: "RS", countryFlag: "🇷🇸", image: playerPhoto.ropz, role: "Support", joinDate: "Oct 2023", rating: 1.04 },
+      { playerId: 0, nickname: "HooXi", realName: "Rasmus Nielsen", country: "DK", countryFlag: "🇩🇰", image: playerPhoto.zywoo, role: "IGL", joinDate: "Jul 2023", rating: 0.92, isCaptain: true },
+    ],
+    mapStats: [
+      { map: "Dust II", played: 76, wins: 55, winRate: 72.4, ctWinRate: 51.8, tWinRate: 48.2 },
+      { map: "Mirage", played: 71, wins: 49, winRate: 69.0, ctWinRate: 53.2, tWinRate: 46.8 },
+      { map: "Anubis", played: 58, wins: 40, winRate: 69.0, ctWinRate: 55.0, tWinRate: 45.0 },
+      { map: "Tuscan", played: 32, wins: 23, winRate: 71.9, ctWinRate: 52.5, tWinRate: 47.5 },
+      { map: "Inferno", played: 65, wins: 42, winRate: 64.6, ctWinRate: 54.8, tWinRate: 45.2 },
+      { map: "Ancient", played: 40, wins: 24, winRate: 60.0, ctWinRate: 56.0, tWinRate: 44.0 },
+    ],
+    recentMatches: [
+      { opponent: "Team Liquid", opponentLogo: logo.liquid, score: "7-10", result: "L", event: "BLAST Premier", date: "Mar 5", format: "BO1" },
+      { opponent: "Astralis", opponentLogo: logo.astralis, score: "2-0", result: "W", event: "IEM Katowice 2026", date: "Mar 3", format: "BO3" },
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "12-16", result: "L", event: "BLAST Premier", date: "Feb 25", format: "BO1" },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, score: "2-1", result: "W", event: "ESL Pro League", date: "Feb 22", format: "BO3" },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, score: "16-11", result: "W", event: "ESL Pro League", date: "Feb 19", format: "BO1" },
+      { opponent: "Spirit", opponentLogo: logo.spirit, score: "1-2", result: "L", event: "BLAST Premier", date: "Feb 16", format: "BO3" },
+    ],
+    achievements: [
+      { event: "BLAST Premier World Final 2024", placement: "1st", tier: "S", date: "Dec 2024", prize: "$500,000" },
+      { event: "IEM Katowice 2022", placement: "3rd-4th", tier: "S", date: "Feb 2022" },
+      { event: "BLAST Premier Spring Final 2023", placement: "1st", tier: "S", date: "Jun 2023", prize: "$200,000" },
+      { event: "IEM Cologne 2023", placement: "2nd", tier: "S", date: "Aug 2023" },
+    ],
+    transfers: [
+      { player: "nexa", direction: "in", fromTeam: "OG", date: "Oct 2023" },
+      { player: "HooXi", direction: "in", fromTeam: "Copenhagen Flames", date: "Jul 2023" },
+      { player: "Aleksib", direction: "out", toTeam: "NAVI", date: "Sep 2023" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 14, losses: 18 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 12, losses: 13 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 16, losses: 11 },
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, wins: 8, losses: 10 },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, wins: 11, losses: 7 },
+    ],
+    totalMapsPlayed: 398, overallWinRate: 66.8, last10Results: ["L","W","L","W","W","L","W","W","L","W"],
+    majorsWon: 0, totalPrizeEarnings: "$9,850,000",
+  },
+  {
+    id: "vitality", name: "Vitality", abbr: "VIT", color: "#fcd34d", logo: logo.vitality,
+    region: "Europe", country: "FR", countryFlag: flag.FR, founded: "2018",
+    coach: { nickname: "XTQZZZ", realName: "Remy Quoniam", country: "FR", countryFlag: flag.FR },
+    worldRanking: 3, rankingPoints: 845, peakRanking: 1, peakRankingDate: "Dec 2023",
+    weeksInTop5: 140, weeksInTop10: 220,
+    roster: [
+      { playerId: 2, nickname: "ZywOo", realName: "Mathieu Herbaut", country: "FR", countryFlag: flag.FR, image: playerPhoto.zywoo, role: "AWPer", joinDate: "Oct 2019", rating: 1.31 },
+      { playerId: 8, nickname: "Spinx", realName: "Lotan Giladi", country: "IL", countryFlag: flag.IL, image: playerPhoto.zywoo, role: "Rifler", joinDate: "Sep 2022", rating: 1.16 },
+      { playerId: 0, nickname: "flameZ", realName: "Shahar Shushan", country: "IL", countryFlag: flag.IL, image: playerPhoto.m0nesy, role: "Entry Fragger", joinDate: "Sep 2022", rating: 1.12 },
+      { playerId: 0, nickname: "apEX", realName: "Dan Madesclaire", country: "FR", countryFlag: flag.FR, image: playerPhoto.ropz, role: "IGL", joinDate: "Oct 2018", rating: 0.95, isCaptain: true },
+      { playerId: 0, nickname: "mezii", realName: "William Merriman", country: "GB", countryFlag: "🇬🇧", image: playerPhoto.niko, role: "Support", joinDate: "Jun 2023", rating: 1.05 },
+    ],
+    mapStats: [
+      { map: "Inferno", played: 94, wins: 72, winRate: 76.6, ctWinRate: 57.2, tWinRate: 42.8 },
+      { map: "Ancient", played: 68, wins: 52, winRate: 76.5, ctWinRate: 58.3, tWinRate: 41.7 },
+      { map: "Mirage", played: 72, wins: 47, winRate: 65.3, ctWinRate: 54.0, tWinRate: 46.0 },
+      { map: "Nuke", played: 55, wins: 37, winRate: 67.3, ctWinRate: 59.5, tWinRate: 40.5 },
+      { map: "Anubis", played: 45, wins: 28, winRate: 62.2, ctWinRate: 55.0, tWinRate: 45.0 },
+    ],
+    recentMatches: [
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, score: "16-9", result: "W", event: "IEM Katowice 2026", date: "Mar 5", format: "BO3" },
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "2-1", result: "W", event: "BLAST Premier", date: "Mar 1", format: "BO3" },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, score: "2-0", result: "W", event: "IEM Katowice 2026", date: "Feb 28", format: "BO3" },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, score: "16-13", result: "W", event: "ESL Pro League", date: "Feb 24", format: "BO1" },
+      { opponent: "Heroic", opponentLogo: logo.heroic, score: "1-2", result: "L", event: "ESL Pro League", date: "Feb 21", format: "BO3" },
+    ],
+    achievements: [
+      { event: "PGL Major Copenhagen 2024", placement: "1st", tier: "S", date: "May 2024", prize: "$500,000" },
+      { event: "BLAST Premier World Final 2023", placement: "1st", tier: "S", date: "Dec 2023", prize: "$500,000" },
+      { event: "IEM Cologne 2023", placement: "1st", tier: "S", date: "Aug 2023", prize: "$400,000" },
+      { event: "BLAST Premier Spring Final 2024", placement: "2nd", tier: "S", date: "Jun 2024" },
+    ],
+    transfers: [
+      { player: "mezii", direction: "in", fromTeam: "Cloud9", date: "Jun 2023" },
+      { player: "Spinx", direction: "in", fromTeam: "ENCE", date: "Sep 2022" },
+      { player: "flameZ", direction: "in", fromTeam: "ENCE", date: "Sep 2022" },
+      { player: "dupreeh", direction: "out", toTeam: "Astralis", date: "Sep 2022" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 16, losses: 15 },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 13, losses: 12 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 14, losses: 10 },
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, wins: 10, losses: 7 },
+    ],
+    totalMapsPlayed: 410, overallWinRate: 69.3, last10Results: ["W","W","W","W","L","W","W","L","W","W"],
+    majorsWon: 1, totalPrizeEarnings: "$12,300,000",
+  },
+  {
+    id: "faze", name: "FaZe Clan", abbr: "FaZe", color: "#ef4444", logo: logo.faze,
+    region: "Europe", country: "EU", countryFlag: "🇪🇺", founded: "2010",
+    coach: { nickname: "RobbaN", realName: "Robert Dahlstrom", country: "SE", countryFlag: "🇸🇪" },
+    worldRanking: 5, rankingPoints: 723, peakRanking: 1, peakRankingDate: "May 2022",
+    weeksInTop5: 165, weeksInTop10: 280,
+    roster: [
+      { playerId: 5, nickname: "ropz", realName: "Robin Kool", country: "EE", countryFlag: flag.EE, image: playerPhoto.ropz, role: "Lurker", joinDate: "Jan 2022", rating: 1.21 },
+      { playerId: 11, nickname: "broky", realName: "Helvijs Saukants", country: "LV", countryFlag: flag.LV, image: playerPhoto.ropz, role: "AWPer", joinDate: "Oct 2019", rating: 1.13 },
+      { playerId: 12, nickname: "rain", realName: "Havard Nygaard", country: "NO", countryFlag: flag.NO, image: playerPhoto.ropz, role: "Rifler", joinDate: "Feb 2016", rating: 1.11 },
+      { playerId: 9, nickname: "frozen", realName: "David Cernansky", country: "SK", countryFlag: flag.SK, image: playerPhoto.niko, role: "Rifler", joinDate: "Jan 2024", rating: 1.15 },
+      { playerId: 0, nickname: "karrigan", realName: "Finn Andersen", country: "DK", countryFlag: "🇩🇰", image: playerPhoto.zywoo, role: "IGL", joinDate: "Dec 2021", rating: 0.89, isCaptain: true },
+    ],
+    mapStats: [
+      { map: "Mirage", played: 85, wins: 61, winRate: 71.8, ctWinRate: 53.5, tWinRate: 46.5 },
+      { map: "Ancient", played: 62, wins: 45, winRate: 72.6, ctWinRate: 56.8, tWinRate: 43.2 },
+      { map: "Nuke", played: 58, wins: 41, winRate: 70.7, ctWinRate: 59.0, tWinRate: 41.0 },
+      { map: "Dust II", played: 55, wins: 38, winRate: 69.1, ctWinRate: 51.5, tWinRate: 48.5 },
+      { map: "Inferno", played: 70, wins: 45, winRate: 64.3, ctWinRate: 55.2, tWinRate: 44.8 },
+    ],
+    recentMatches: [
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "11-13", result: "L", event: "IEM Katowice 2026", date: "Mar 5", format: "BO3" },
+      { opponent: "Heroic", opponentLogo: logo.heroic, score: "2-0", result: "W", event: "IEM Katowice 2026", date: "Mar 2", format: "BO3" },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, score: "1-2", result: "L", event: "ESL Pro League", date: "Feb 22", format: "BO3" },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, score: "16-14", result: "W", event: "BLAST Premier", date: "Feb 19", format: "BO1" },
+      { opponent: "Vitality", opponentLogo: logo.vitality, score: "0-2", result: "L", event: "IEM Katowice 2026", date: "Feb 28", format: "BO3" },
+    ],
+    achievements: [
+      { event: "PGL Major Antwerp 2022", placement: "1st", tier: "S", date: "May 2022", prize: "$500,000" },
+      { event: "IEM Katowice 2022", placement: "1st", tier: "S", date: "Feb 2022", prize: "$400,000" },
+      { event: "IEM Cologne 2022", placement: "2nd", tier: "S", date: "Jul 2022" },
+      { event: "ESL Pro League S15", placement: "1st", tier: "A", date: "Apr 2022", prize: "$175,000" },
+    ],
+    transfers: [
+      { player: "frozen", direction: "in", fromTeam: "MOUZ", date: "Jan 2024" },
+      { player: "ropz", direction: "in", fromTeam: "MOUZ", date: "Jan 2022" },
+      { player: "Twistzz", direction: "out", toTeam: "Team Liquid", date: "Jan 2024" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 12, losses: 20 },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 11, losses: 16 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 10, losses: 14 },
+      { opponent: "Team Spirit", opponentLogo: logo.spirit, wins: 9, losses: 6 },
+    ],
+    totalMapsPlayed: 415, overallWinRate: 65.1, last10Results: ["L","W","L","W","L","W","W","L","W","W"],
+    majorsWon: 1, totalPrizeEarnings: "$15,200,000",
+  },
+  {
+    id: "spirit", name: "Team Spirit", abbr: "Spirit", color: "#34d399", logo: logo.spirit,
+    region: "Europe", country: "RU", countryFlag: flag.RU, founded: "2015",
+    coach: { nickname: "hally", realName: "Ilya Oleynik", country: "RU", countryFlag: flag.RU },
+    worldRanking: 6, rankingPoints: 698, peakRanking: 2, peakRankingDate: "Dec 2025",
+    weeksInTop5: 45, weeksInTop10: 85,
+    roster: [
+      { playerId: 1, nickname: "donk", realName: "Danil Kryshkovets", country: "RU", countryFlag: flag.RU, image: playerPhoto.donk, role: "Rifler", joinDate: "Jun 2023", rating: 1.36 },
+      { playerId: 13, nickname: "sh1ro", realName: "Dmitry Sokolov", country: "RU", countryFlag: flag.RU, image: playerPhoto.donk, role: "AWPer", joinDate: "Feb 2020", rating: 1.10 },
+      { playerId: 0, nickname: "chopper", realName: "Leonid Vishnyakov", country: "RU", countryFlag: flag.RU, image: playerPhoto.m0nesy, role: "IGL", joinDate: "Oct 2019", rating: 0.96, isCaptain: true },
+      { playerId: 0, nickname: "magixx", realName: "Boris Vorobiev", country: "RU", countryFlag: flag.RU, image: playerPhoto.ropz, role: "Rifler", joinDate: "Jan 2021", rating: 1.06 },
+      { playerId: 0, nickname: "zont1x", realName: "Nikolay Markov", country: "RU", countryFlag: flag.RU, image: playerPhoto.niko, role: "Rifler", joinDate: "Jun 2023", rating: 1.08 },
+    ],
+    mapStats: [
+      { map: "Anubis", played: 72, wins: 53, winRate: 73.6, ctWinRate: 56.0, tWinRate: 44.0 },
+      { map: "Mirage", played: 65, wins: 44, winRate: 67.7, ctWinRate: 53.5, tWinRate: 46.5 },
+      { map: "Nuke", played: 48, wins: 33, winRate: 68.8, ctWinRate: 58.0, tWinRate: 42.0 },
+      { map: "Inferno", played: 55, wins: 35, winRate: 63.6, ctWinRate: 54.5, tWinRate: 45.5 },
+      { map: "Dust II", played: 38, wins: 22, winRate: 57.9, ctWinRate: 50.8, tWinRate: 49.2 },
+    ],
+    recentMatches: [
+      { opponent: "Vitality", opponentLogo: logo.vitality, score: "9-16", result: "L", event: "IEM Katowice 2026", date: "Mar 5", format: "BO3" },
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "0-2", result: "L", event: "IEM Katowice 2026", date: "Feb 28", format: "BO3" },
+      { opponent: "MOUZ", opponentLogo: logo.mouz, score: "16-12", result: "W", event: "IEM Katowice 2026", date: "Feb 26", format: "BO1" },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, score: "2-1", result: "W", event: "BLAST Premier", date: "Feb 16", format: "BO3" },
+      { opponent: "Team Liquid", opponentLogo: logo.liquid, score: "2-0", result: "W", event: "BLAST Premier", date: "Feb 13", format: "BO3" },
+    ],
+    achievements: [
+      { event: "BLAST Premier 2025 Champion", placement: "1st", tier: "S", date: "Dec 2025", prize: "$500,000" },
+      { event: "IEM Katowice 2026", placement: "3rd-4th", tier: "S", date: "Mar 2026" },
+      { event: "ESL Pro League S20", placement: "2nd", tier: "A", date: "Oct 2025" },
+    ],
+    transfers: [
+      { player: "donk", direction: "in", fromTeam: "Academy", date: "Jun 2023" },
+      { player: "zont1x", direction: "in", fromTeam: "Academy", date: "Jun 2023" },
+      { player: "degster", direction: "out", toTeam: "Falcons", date: "Jun 2023" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 8, losses: 12 },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 10, losses: 8 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 7, losses: 10 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 6, losses: 9 },
+    ],
+    totalMapsPlayed: 320, overallWinRate: 64.4, last10Results: ["L","L","W","W","W","W","L","W","W","L"],
+    majorsWon: 0, totalPrizeEarnings: "$4,850,000",
+  },
+  {
+    id: "mouz", name: "MOUZ", abbr: "MOUZ", color: "#2dd4bf", logo: logo.mouz,
+    region: "Europe", country: "DE", countryFlag: "🇩🇪", founded: "2002",
+    coach: { nickname: "Torzi", realName: "Dennis Nielsen", country: "DK", countryFlag: "🇩🇰" },
+    worldRanking: 4, rankingPoints: 756, peakRanking: 3, peakRankingDate: "Sep 2024",
+    weeksInTop5: 30, weeksInTop10: 68,
+    roster: [
+      { playerId: 0, nickname: "torzsi", realName: "Adam Torzsas", country: "HU", countryFlag: "🇭🇺", image: playerPhoto.m0nesy, role: "AWPer", joinDate: "Jan 2023", rating: 1.12 },
+      { playerId: 0, nickname: "Brollan", realName: "Ludvig Brolin", country: "SE", countryFlag: "🇸🇪", image: playerPhoto.ropz, role: "Rifler", joinDate: "Jun 2023", rating: 1.14 },
+      { playerId: 0, nickname: "xertioN", realName: "Dorian Berman", country: "IL", countryFlag: flag.IL, image: playerPhoto.niko, role: "Entry Fragger", joinDate: "Jan 2023", rating: 1.09 },
+      { playerId: 0, nickname: "siuhy", realName: "Kamil Szkaradek", country: "PL", countryFlag: "🇵🇱", image: playerPhoto.donk, role: "IGL", joinDate: "Jun 2022", rating: 0.97, isCaptain: true },
+      { playerId: 0, nickname: "Jimpphat", realName: "Jimi Salo", country: "FI", countryFlag: "🇫🇮", image: playerPhoto.zywoo, role: "Rifler", joinDate: "Jan 2023", rating: 1.10 },
+    ],
+    mapStats: [
+      { map: "Anubis", played: 60, wins: 42, winRate: 70.0, ctWinRate: 55.5, tWinRate: 44.5 },
+      { map: "Tuscan", played: 28, wins: 19, winRate: 67.9, ctWinRate: 52.0, tWinRate: 48.0 },
+      { map: "Dust II", played: 52, wins: 34, winRate: 65.4, ctWinRate: 51.0, tWinRate: 49.0 },
+      { map: "Mirage", played: 48, wins: 30, winRate: 62.5, ctWinRate: 53.0, tWinRate: 47.0 },
+      { map: "Inferno", played: 44, wins: 26, winRate: 59.1, ctWinRate: 54.0, tWinRate: 46.0 },
+    ],
+    recentMatches: [
+      { opponent: "Spirit", opponentLogo: logo.spirit, score: "12-16", result: "L", event: "IEM Katowice 2026", date: "Feb 26", format: "BO1" },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, score: "14-16", result: "L", event: "BLAST Premier", date: "Feb 19", format: "BO1" },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, score: "11-16", result: "L", event: "ESL Pro League", date: "Feb 19", format: "BO1" },
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "1-2", result: "L", event: "BLAST Premier", date: "Feb 22", format: "BO3" },
+      { opponent: "Vitality", opponentLogo: logo.vitality, score: "13-16", result: "L", event: "ESL Pro League", date: "Feb 24", format: "BO1" },
+    ],
+    achievements: [
+      { event: "ESL Pro League S19", placement: "1st", tier: "A", date: "Apr 2024", prize: "$175,000" },
+      { event: "IEM Cologne 2024", placement: "2nd", tier: "S", date: "Aug 2024" },
+      { event: "IEM Dallas 2024", placement: "1st", tier: "A", date: "Jun 2024", prize: "$100,000" },
+    ],
+    transfers: [
+      { player: "Brollan", direction: "in", fromTeam: "fnatic", date: "Jun 2023" },
+      { player: "torzsi", direction: "in", fromTeam: "Falcons", date: "Jan 2023" },
+      { player: "frozen", direction: "out", toTeam: "FaZe", date: "Jan 2024" },
+      { player: "ropz", direction: "out", toTeam: "FaZe", date: "Jan 2022" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 5, losses: 9 },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 7, losses: 11 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 6, losses: 8 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 8, losses: 7 },
+    ],
+    totalMapsPlayed: 290, overallWinRate: 62.1, last10Results: ["L","L","L","L","L","W","W","W","L","W"],
+    majorsWon: 0, totalPrizeEarnings: "$3,450,000",
+  },
+  {
+    id: "liquid", name: "Team Liquid", abbr: "TL", color: "#38bdf8", logo: logo.liquid,
+    region: "Americas", country: "US", countryFlag: "🇺🇸", founded: "2000",
+    coach: { nickname: "adreN", realName: "Eric Hoag", country: "US", countryFlag: "🇺🇸" },
+    worldRanking: 7, rankingPoints: 654, peakRanking: 1, peakRankingDate: "Jul 2019",
+    weeksInTop5: 95, weeksInTop10: 200,
+    roster: [
+      { playerId: 0, nickname: "NAF", realName: "Keith Markovic", country: "CA", countryFlag: "🇨🇦", image: playerPhoto.ropz, role: "Rifler", joinDate: "Jan 2018", rating: 1.10 },
+      { playerId: 0, nickname: "EliGE", realName: "Jonathan Jablonowski", country: "US", countryFlag: "🇺🇸", image: playerPhoto.niko, role: "Rifler", joinDate: "Jan 2015", rating: 1.12 },
+      { playerId: 0, nickname: "Twistzz", realName: "Russel Van Dulken", country: "CA", countryFlag: "🇨🇦", image: playerPhoto.m0nesy, role: "Rifler", joinDate: "Jan 2024", rating: 1.16 },
+      { playerId: 0, nickname: "oSee", realName: "Joshua Ohm", country: "US", countryFlag: "🇺🇸", image: playerPhoto.zywoo, role: "AWPer", joinDate: "Aug 2022", rating: 1.08 },
+      { playerId: 0, nickname: "cadiaN", realName: "Casper Moller", country: "DK", countryFlag: "🇩🇰", image: playerPhoto.donk, role: "IGL", joinDate: "Jan 2024", rating: 0.95, isCaptain: true },
+    ],
+    mapStats: [
+      { map: "Inferno", played: 70, wins: 47, winRate: 67.1, ctWinRate: 55.0, tWinRate: 45.0 },
+      { map: "Mirage", played: 62, wins: 40, winRate: 64.5, ctWinRate: 52.5, tWinRate: 47.5 },
+      { map: "Nuke", played: 50, wins: 33, winRate: 66.0, ctWinRate: 58.0, tWinRate: 42.0 },
+      { map: "Dust II", played: 45, wins: 28, winRate: 62.2, ctWinRate: 51.0, tWinRate: 49.0 },
+      { map: "Anubis", played: 38, wins: 22, winRate: 57.9, ctWinRate: 54.0, tWinRate: 46.0 },
+    ],
+    recentMatches: [
+      { opponent: "G2 Esports", opponentLogo: logo.g2, score: "10-7", result: "W", event: "BLAST Premier", date: "Mar 5", format: "BO1" },
+      { opponent: "NAVI", opponentLogo: logo.navi, score: "1-2", result: "L", event: "IEM Katowice 2026", date: "Mar 4", format: "BO3" },
+      { opponent: "Spirit", opponentLogo: logo.spirit, score: "0-2", result: "L", event: "BLAST Premier", date: "Feb 13", format: "BO3" },
+      { opponent: "FURIA", opponentLogo: logo.furia, score: "16-13", result: "W", event: "BLAST Premier", date: "Feb 10", format: "BO1" },
+    ],
+    achievements: [
+      { event: "IEM Grand Slam S3", placement: "1st", tier: "S", date: "2019", prize: "$1,000,000" },
+      { event: "IEM Sydney 2019", placement: "1st", tier: "A", date: "May 2019", prize: "$100,000" },
+      { event: "ESL One Cologne 2019", placement: "2nd", tier: "S", date: "Jul 2019" },
+    ],
+    transfers: [
+      { player: "Twistzz", direction: "in", fromTeam: "FaZe", date: "Jan 2024" },
+      { player: "cadiaN", direction: "in", fromTeam: "Heroic", date: "Jan 2024" },
+      { player: "YEKINDAR", direction: "out", toTeam: "Virtus.pro", date: "Jan 2024" },
+    ],
+    headToHead: [
+      { opponent: "NAVI", opponentLogo: logo.navi, wins: 8, losses: 14 },
+      { opponent: "FaZe Clan", opponentLogo: logo.faze, wins: 10, losses: 12 },
+      { opponent: "G2 Esports", opponentLogo: logo.g2, wins: 9, losses: 11 },
+      { opponent: "Vitality", opponentLogo: logo.vitality, wins: 7, losses: 13 },
+    ],
+    totalMapsPlayed: 350, overallWinRate: 62.9, last10Results: ["W","L","L","W","W","L","W","W","L","W"],
+    majorsWon: 0, totalPrizeEarnings: "$11,200,000",
+  },
+  {
+    id: "furia", name: "FURIA", abbr: "FURIA", color: "#fbbf24", logo: logo.furia,
+    region: "Americas", country: "BR", countryFlag: flag.BR, founded: "2017",
+    coach: { nickname: "guerri", realName: "Nicholas Nogueira", country: "BR", countryFlag: flag.BR },
+    worldRanking: 9, rankingPoints: 589, peakRanking: 3, peakRankingDate: "Aug 2023",
+    weeksInTop5: 22, weeksInTop10: 78,
+    roster: [
+      { playerId: 14, nickname: "yuurih", realName: "Yuri Santos", country: "BR", countryFlag: flag.BR, image: playerPhoto.m0nesy, role: "Rifler", joinDate: "Mar 2018", rating: 1.09 },
+      { playerId: 15, nickname: "KSCERATO", realName: "Kaike Cerato", country: "BR", countryFlag: flag.BR, image: playerPhoto.m0nesy, role: "Rifler", joinDate: "May 2018", rating: 1.08 },
+      { playerId: 0, nickname: "FalleN", realName: "Gabriel Toledo", country: "BR", countryFlag: flag.BR, image: trophyCup, role: "AWPer / IGL", joinDate: "Apr 2023", rating: 0.98, isCaptain: true },
+      { playerId: 0, nickname: "chelo", realName: "Marcelo Cespedes", country: "BR", countryFlag: flag.BR, image: playerPhoto.donk, role: "Entry Fragger", joinDate: "Jan 2022", rating: 1.03 },
+      { playerId: 0, nickname: "skullz", realName: "Felipe de Oliveira", country: "BR", countryFlag: flag.BR, image: playerPhoto.ropz, role: "Rifler", joinDate: "Jan 2024", rating: 1.05 },
+    ],
+    mapStats: [
+      { map: "Inferno", played: 68, wins: 46, winRate: 67.6, ctWinRate: 55.5, tWinRate: 44.5 },
+      { map: "Dust II", played: 55, wins: 37, winRate: 67.3, ctWinRate: 51.0, tWinRate: 49.0 },
+      { map: "Mirage", played: 60, wins: 38, winRate: 63.3, ctWinRate: 52.0, tWinRate: 48.0 },
+      { map: "Tuscan", played: 22, wins: 14, winRate: 63.6, ctWinRate: 50.5, tWinRate: 49.5 },
+      { map: "Anubis", played: 35, wins: 20, winRate: 57.1, ctWinRate: 53.0, tWinRate: 47.0 },
+    ],
+    recentMatches: [
+      { opponent: "Cloud9", opponentLogo: logo.cloud9, score: "16-12", result: "W", event: "ESL Pro League", date: "Mar 3", format: "BO1" },
+      { opponent: "Team Liquid", opponentLogo: logo.liquid, score: "13-16", result: "L", event: "BLAST Premier", date: "Feb 10", format: "BO1" },
+      { opponent: "paiN", opponentLogo: logo.pain, score: "2-0", result: "W", event: "ESL Challenger", date: "Feb 5", format: "BO3" },
+      { opponent: "Imperial", opponentLogo: logo.imperial, score: "16-8", result: "W", event: "ESL Challenger", date: "Feb 3", format: "BO1" },
+    ],
+    achievements: [
+      { event: "ESL Pro League S20", placement: "3rd-4th", tier: "A", date: "Oct 2025" },
+      { event: "IEM Rio Major 2022", placement: "9th-12th", tier: "S", date: "Nov 2022" },
+      { event: "IEM Dallas 2023", placement: "2nd", tier: "A", date: "Jun 2023" },
+    ],
+    transfers: [
+      { player: "FalleN", direction: "in", fromTeam: "Imperial", date: "Apr 2023" },
+      { player: "skullz", direction: "in", fromTeam: "Academy", date: "Jan 2024" },
+      { player: "arT", direction: "out", toTeam: "Imperial", date: "Apr 2023" },
+    ],
+    headToHead: [
+      { opponent: "Team Liquid", opponentLogo: logo.liquid, wins: 11, losses: 9 },
+      { opponent: "paiN Gaming", opponentLogo: logo.pain, wins: 15, losses: 4 },
+      { opponent: "Imperial", opponentLogo: logo.imperial, wins: 13, losses: 5 },
+      { opponent: "Cloud9", opponentLogo: logo.cloud9, wins: 8, losses: 6 },
+    ],
+    totalMapsPlayed: 305, overallWinRate: 61.6, last10Results: ["W","L","W","W","W","L","W","L","W","W"],
+    majorsWon: 0, totalPrizeEarnings: "$3,100,000",
+  },
+];
 
 const makeProfile = (p: Player, id: number, extra: Partial<PlayerProfile>): PlayerProfile => ({
   id,
@@ -888,6 +1385,29 @@ const makeProfile = (p: Player, id: number, extra: Partial<PlayerProfile>): Play
   openingKills: 320 + Math.floor(Math.random() * 200),
   openingDeaths: 190 + Math.floor(Math.random() * 100),
   awpKillsRound: +(Math.random() * 0.35).toFixed(2),
+  bio: "",
+  teamSlug: "",
+  region: "Europe",
+  majorWins: 0,
+  signatureWeapon: "AK-47",
+  careerEarnings: "$500,000",
+  peakRating: +(p.rating + 0.08).toFixed(2),
+  peakRatingDate: "2025",
+  form: [
+    { month: "Oct 2025", rating: +(p.rating - 0.04 + Math.random() * 0.08).toFixed(2) },
+    { month: "Nov 2025", rating: +(p.rating - 0.02 + Math.random() * 0.06).toFixed(2) },
+    { month: "Dec 2025", rating: +(p.rating + Math.random() * 0.05).toFixed(2) },
+    { month: "Jan 2026", rating: +(p.rating - 0.03 + Math.random() * 0.08).toFixed(2) },
+    { month: "Feb 2026", rating: +(p.rating + Math.random() * 0.04).toFixed(2) },
+    { month: "Mar 2026", rating: +(p.rating - 0.01 + Math.random() * 0.06).toFixed(2) },
+  ],
+  eventHistory: [
+    { event: "IEM Katowice 2026", tier: "S", rating: +(p.rating + 0.05).toFixed(2), maps: 12, placement: "5th-8th", date: "Mar 2026" },
+    { event: "BLAST Premier Spring 2026", tier: "S", rating: +(p.rating - 0.02).toFixed(2), maps: 8, placement: "9th-12th", date: "Feb 2026" },
+    { event: "ESL Pro League S21", tier: "A", rating: +(p.rating + 0.01).toFixed(2), maps: 14, placement: "3rd-4th", date: "Jan 2026" },
+    { event: "BLAST Premier World Final 2025", tier: "S", rating: +(p.rating + 0.08).toFixed(2), maps: 10, placement: "1st", date: "Dec 2025" },
+    { event: "IEM Cologne 2025", tier: "S", rating: +(p.rating - 0.05).toFixed(2), maps: 6, placement: "9th-12th", date: "Oct 2025" },
+  ],
   bestMaps: [
     { map: "Mirage", rating: +(p.rating + Math.random() * 0.1).toFixed(2), winRate: 60 + Math.floor(Math.random() * 18), matches: 30 + Math.floor(Math.random() * 20) },
     { map: "Inferno", rating: +(p.rating - 0.02 + Math.random() * 0.1).toFixed(2), winRate: 55 + Math.floor(Math.random() * 20), matches: 28 + Math.floor(Math.random() * 18) },
@@ -916,21 +1436,21 @@ const makeProfile = (p: Player, id: number, extra: Partial<PlayerProfile>): Play
 });
 
 export const playerProfiles: PlayerProfile[] = [
-  makeProfile(topPlayers[0], 1, { age: 18, role: "Rifler / Entry Fragger", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2023 – Present" }], achievements: ["HLTV #1 Player 2025", "IEM Katowice 2026 MVP", "BLAST Premier Champion 2025", "Intel Grand Slam S3"] }),
-  makeProfile(topPlayers[1], 2, { age: 24, role: "AWPer / Star Player", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2019 – Present" }], achievements: ["HLTV #1 Player 2020", "HLTV #1 Player 2021", "PGL Major Copenhagen 2024 MVP", "Intel Grand Slam S2"] }),
-  makeProfile(topPlayers[2], 3, { age: 27, role: "Rifler / Star Player", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["IEM Katowice 2022 MVP", "BLAST Premier Champion 2024", "ESL One Cologne 2023 MVP"] }),
-  makeProfile(topPlayers[3], 4, { age: 19, role: "AWPer", teamHistory: [{ team: "G2", logo: logo.g2, period: "2022 – Present" }, { team: "NAVI Junior", logo: logo.navi, period: "2020 – 2022" }], achievements: ["BLAST Premier Champion 2024", "ESL Pro League S18 MVP"] }),
-  makeProfile(topPlayers[4], 5, { age: 25, role: "Lurker / Rifler", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2022 – Present" }, { team: "MOUZ", logo: logo.mouz, period: "2017 – 2022" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "HLTV #4 Player 2022"] }),
-  makeProfile(topPlayers[5], 6, { age: 21, role: "Rifler", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2021 – Present" }], achievements: ["PGL Major Stockholm 2021 Champion", "Intel Grand Slam S1 (NAVI)"] }),
-  makeProfile(topPlayers[6], 7, { age: 23, role: "Entry Fragger", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2023 – Present" }, { team: "Complexity", logo: logo.complexity, period: "2021 – 2023" }], achievements: ["IEM Katowice 2024 Champion"] }),
-  makeProfile(topPlayers[7], 8, { age: 23, role: "Rifler", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2022 – Present" }], achievements: ["PGL Major Copenhagen 2024 Champion", "BLAST Premier Champion 2023"] }),
-  makeProfile(topPlayers[8], 9, { age: 24, role: "Rifler", teamHistory: [{ team: "MOUZ", logo: logo.mouz, period: "2018 – Present" }], achievements: ["ESL Pro League S19 Champion", "IEM Cologne 2024 Finalist"] }),
-  makeProfile(topPlayers[9], 10, { age: 29, role: "Rifler / Support", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["BLAST Premier Champion 2024", "IEM Katowice 2022 Champion"] }),
-  makeProfile(topPlayers[10], 11, { age: 23, role: "AWPer / Rifler", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2020 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion"] }),
-  makeProfile(topPlayers[11], 12, { age: 30, role: "Rifler / Support", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2016 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "Intel Grand Slam S2 (FaZe)"] }),
-  makeProfile(topPlayers[12], 13, { age: 23, role: "AWPer", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2020 – Present" }], achievements: ["IEM Katowice 2026 Finalist", "BLAST Premier 2025 Champion"] }),
-  makeProfile(topPlayers[13], 14, { age: 25, role: "Rifler", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
-  makeProfile(topPlayers[14], 15, { age: 26, role: "Rifler / Anchor", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
+  makeProfile(topPlayers[0], 1, { age: 18, role: "Rifler / Entry Fragger", bio: "The youngest player to ever reach #1 in the HLTV rankings. donk burst onto the scene from Spirit's academy and immediately dominated with unmatched aim and game sense, becoming the undisputed best player in the world.", teamSlug: "spirit", region: "Europe", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$850,000", peakRating: 1.42, peakRatingDate: "Nov 2025", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2023 – Present" }], achievements: ["HLTV #1 Player 2025", "IEM Katowice 2026 MVP", "BLAST Premier Champion 2025", "Intel Grand Slam S3"] }),
+  makeProfile(topPlayers[1], 2, { age: 24, role: "AWPer / Star Player", bio: "The French prodigy who has won the HLTV #1 award twice and led Vitality to a Major championship. ZywOo's AWP and rifling make him one of the most complete players ever.", teamSlug: "vitality", region: "Europe", majorWins: 1, signatureWeapon: "AWP", careerEarnings: "$2,100,000", peakRating: 1.38, peakRatingDate: "Dec 2023", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2019 – Present" }], achievements: ["HLTV #1 Player 2020", "HLTV #1 Player 2021", "PGL Major Copenhagen 2024 MVP", "Intel Grand Slam S2"] }),
+  makeProfile(topPlayers[2], 3, { age: 27, role: "Rifler / Star Player", bio: "One of the most naturally gifted aimers in CS history. NiKo's rifle mechanics and spray control are legendary, making him a perennial top 5 player for nearly a decade.", teamSlug: "g2", region: "Europe", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$1,800,000", peakRating: 1.34, peakRatingDate: "Oct 2023", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["IEM Katowice 2022 MVP", "BLAST Premier Champion 2024", "ESL One Cologne 2023 MVP"] }),
+  makeProfile(topPlayers[3], 4, { age: 19, role: "AWPer", bio: "A prodigious AWPer who joined G2 from NAVI's academy at just 16 and quickly became one of the best AWPers in the world with his aggressive and flashy playstyle.", teamSlug: "g2", region: "Europe", majorWins: 0, signatureWeapon: "AWP", careerEarnings: "$750,000", peakRating: 1.32, peakRatingDate: "Jun 2024", teamHistory: [{ team: "G2", logo: logo.g2, period: "2022 – Present" }, { team: "NAVI Junior", logo: logo.navi, period: "2020 – 2022" }], achievements: ["BLAST Premier Champion 2024", "ESL Pro League S18 MVP"] }),
+  makeProfile(topPlayers[4], 5, { age: 25, role: "Lurker / Rifler", bio: "The Estonian maestro known for his precise spray transfers and intelligent positioning. ropz is one of the most consistent players in history, rarely having a bad game.", teamSlug: "faze", region: "Europe", majorWins: 1, signatureWeapon: "M4A4", careerEarnings: "$1,500,000", peakRating: 1.29, peakRatingDate: "May 2022", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2022 – Present" }, { team: "MOUZ", logo: logo.mouz, period: "2017 – 2022" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "HLTV #4 Player 2022"] }),
+  makeProfile(topPlayers[5], 6, { age: 21, role: "Rifler", bio: "A key part of NAVI's Major-winning roster and one of the most talented young Ukrainian players, b1t contributes consistently with his versatile rifling.", teamSlug: "navi", region: "Europe", majorWins: 1, signatureWeapon: "AK-47", careerEarnings: "$1,200,000", peakRating: 1.25, peakRatingDate: "Nov 2021", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2021 – Present" }], achievements: ["PGL Major Stockholm 2021 Champion", "Intel Grand Slam S1 (NAVI)"] }),
+  makeProfile(topPlayers[6], 7, { age: 23, role: "Entry Fragger", bio: "Known for his explosive entry fragging and high-impact plays, jL moved from Complexity to NAVI where he has thrived as their opening duel specialist.", teamSlug: "navi", region: "Europe", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$600,000", peakRating: 1.24, peakRatingDate: "Mar 2025", teamHistory: [{ team: "NAVI", logo: logo.navi, period: "2023 – Present" }, { team: "Complexity", logo: logo.complexity, period: "2021 – 2023" }], achievements: ["IEM Katowice 2024 Champion"] }),
+  makeProfile(topPlayers[7], 8, { age: 23, role: "Rifler", bio: "An Israeli talent who became a cornerstone of Vitality's firepower, Spinx's versatile rifling and clutch ability make him indispensable.", teamSlug: "vitality", region: "Europe", majorWins: 1, signatureWeapon: "AK-47", careerEarnings: "$900,000", peakRating: 1.22, peakRatingDate: "May 2024", teamHistory: [{ team: "Vitality", logo: logo.vitality, period: "2022 – Present" }], achievements: ["PGL Major Copenhagen 2024 Champion", "BLAST Premier Champion 2023"] }),
+  makeProfile(topPlayers[8], 9, { age: 24, role: "Rifler", bio: "The Slovak prodigy has spent his entire career at MOUZ, developing from a promising youngster into one of the elite riflers in competitive CS.", teamSlug: "mouz", region: "Europe", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$450,000", peakRating: 1.23, peakRatingDate: "Sep 2024", teamHistory: [{ team: "MOUZ", logo: logo.mouz, period: "2018 – Present" }], achievements: ["ESL Pro League S19 Champion", "IEM Cologne 2024 Finalist"] }),
+  makeProfile(topPlayers[9], 10, { age: 29, role: "Rifler / Support", bio: "NiKo's cousin and long-time partner in crime, huNter brings veteran experience and reliable fragging to G2's lineup.", teamSlug: "g2", region: "Europe", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$1,100,000", peakRating: 1.20, peakRatingDate: "Sep 2023", teamHistory: [{ team: "G2", logo: logo.g2, period: "2021 – Present" }, { team: "FaZe", logo: logo.faze, period: "2017 – 2021" }], achievements: ["BLAST Premier Champion 2024", "IEM Katowice 2022 Champion"] }),
+  makeProfile(topPlayers[10], 11, { age: 23, role: "AWPer / Rifler", bio: "A hybrid AWPer/rifler who has been part of FaZe's championship core, broky provides FaZe with a second firepower threat alongside ropz.", teamSlug: "faze", region: "Europe", majorWins: 1, signatureWeapon: "AWP", careerEarnings: "$1,000,000", peakRating: 1.20, peakRatingDate: "Feb 2022", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2020 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion"] }),
+  makeProfile(topPlayers[11], 12, { age: 30, role: "Rifler / Support", bio: "One of the longest-serving players in tier 1 CS, rain has been FaZe's heart and soul since 2016, finally winning a Major in 2022 after years of close calls.", teamSlug: "faze", region: "Europe", majorWins: 1, signatureWeapon: "AK-47", careerEarnings: "$2,300,000", peakRating: 1.18, peakRatingDate: "May 2022", teamHistory: [{ team: "FaZe", logo: logo.faze, period: "2016 – Present" }], achievements: ["PGL Major Antwerp 2022 Champion", "IEM Katowice 2022 Champion", "Intel Grand Slam S2 (FaZe)"] }),
+  makeProfile(topPlayers[12], 13, { age: 23, role: "AWPer", bio: "Spirit's reliable AWPer who complements donk perfectly, sh1ro is known for his passive, consistent AWP style that anchors the team's defense.", teamSlug: "spirit", region: "Europe", majorWins: 0, signatureWeapon: "AWP", careerEarnings: "$550,000", peakRating: 1.18, peakRatingDate: "Dec 2025", teamHistory: [{ team: "Spirit", logo: logo.spirit, period: "2020 – Present" }], achievements: ["IEM Katowice 2026 Finalist", "BLAST Premier 2025 Champion"] }),
+  makeProfile(topPlayers[13], 14, { age: 25, role: "Rifler", bio: "The backbone of FURIA alongside KSCERATO, yuurih is the Brazilian scene's most consistent rifler with insane spray control and clutch ability.", teamSlug: "furia", region: "Americas", majorWins: 0, signatureWeapon: "AK-47", careerEarnings: "$400,000", peakRating: 1.15, peakRatingDate: "Aug 2023", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
+  makeProfile(topPlayers[14], 15, { age: 26, role: "Rifler / Anchor", bio: "KSCERATO is widely regarded as the best Brazilian player of the modern era, known for his robotic consistency and impenetrable site anchoring.", teamSlug: "furia", region: "Americas", majorWins: 0, signatureWeapon: "M4A4", careerEarnings: "$380,000", peakRating: 1.14, peakRatingDate: "Jun 2023", teamHistory: [{ team: "FURIA", logo: logo.furia, period: "2018 – Present" }], achievements: ["ESL Pro League S20 Finalist", "IEM Rio Major 2022 Legend Stage"] }),
 ];
 
 // -- Player of the Week --
